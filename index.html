@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Serviços - Estética Automotiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Um cinza bem claro para o fundo do body */
+            color: #212529; /* Preto para o texto principal */
+        }
+
+        header {
+            background-color: #dc3545; /* Vermelho */
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #212529; /* Preto para cabeçalhos */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #car-selection .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .car-type-btn, .back-button {
+            background-color: #dc3545; /* Vermelho */
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            flex: 1 1 auto; /* Permite que os botões se ajustem e quebrem a linha */
+            max-width: 200px; /* Limita a largura máxima dos botões */
+        }
+
+        .car-type-btn:hover, .back-button:hover {
+            background-color: #c82333; /* Vermelho um pouco mais escuro no hover */
+            transform: translateY(-2px);
+        }
+
+        .car-type-btn:active, .back-button:active {
+            background-color: #bd2130; /* Vermelho mais escuro no active */
+            transform: translateY(0);
+        }
+
+        #services-display {
+            margin-top: 30px;
+        }
+
+        .combo-section {
+            background-color: #f8f9fa; /* Cinza claro para o fundo da seção de combo */
+            border: 1px solid #e9ecef; /* Borda cinza clara */
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .combo-section h3 {
+            color: #dc3545; /* Vermelho */
+            margin-top: 0;
+            font-size: 22px;
+            border-bottom: 2px solid #dc3545;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .combo-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .combo-section th, .combo-section td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+            color: #212529; /* Preto para texto da tabela */
+        }
+
+        .combo-section th {
+            background-color: #e9ecef; /* Cinza para cabeçalho da tabela */
+            color: #212529;
+        }
+
+        /* Nova regra para negrito em "Total" e "Total com Desconto" */
+        .combo-section table .highlight-bold {
+            font-weight: bold;
+        }
+
+        .combo-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .combo-section ul li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+            color: #343a40; /* Cinza escuro para lista de inclusões */
+        }
+
+        .combo-section ul li::before {
+            content: '•';
+            color: #dc3545; /* Vermelho para o marcador da lista */
+            position: absolute;
+            left: 0;
+        }
+
+        .additional-services {
+            margin-top: 30px;
+            border-top: 2px dashed #ced4da;
+            padding-top: 25px;
+        }
+
+        .additional-services h3 {
+            color: #212529; /* Preto */
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .service-item {
+            background-color: #f8f9fa; /* Cinza claro para o fundo do item de serviço */
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .service-item h4 {
+            color: #dc3545; /* Vermelho */
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .service-item p {
+            margin-bottom: 5px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #343a40; /* Cinza escuro para descrição */
+        }
+
+        .service-item .price {
+            font-weight: bold;
+            color: #212529; /* Preto para o preço */
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+        }
+
+        .info-text {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #343a40; /* Cinza escuro para o texto informativo */
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .appointment-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6f7ff; /* Um azul claro para o fundo da mensagem de agendamento */
+            border: 1px solid #b3e0ff; /* Borda azul mais escura */
+            border-radius: 5px;
+            font-size: 1.1em;
+            color: #0056b3; /* Azul escuro para o texto */
+        }
+
+        .appointment-message a {
+            color: #0056b3;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .appointment-message a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .car-type-btn {
+                flex-basis: 45%; /* 2 botões por linha */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .car-type-btn {
+                flex-basis: 100%; /* 1 botão por linha */
+                max-width: none;
+            }
+            main {
+                margin: 10px;
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            .combo-section h3, .additional-services h3 {
+                font-size: 18px;
+            }
+            .info-text, .appointment-message {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Catálogo de Serviços - Estética Automotiva</h1>
+    </header>
+
+    <main>
+        <section id="car-selection">
+            <p class="info-text">
+                Explore nossos serviços! Você pode escolher itens avulsos ou optar por nossos combos especiais para aproveitar descontos incríveis.
+            </p>
+            <div class="appointment-message">
+                Para agendar seu serviço, acesse nosso link: <a href="https://calendly.com/rsaleslavacar/agendamento" target="_blank">Agendar Serviço R.Sales</a>
+            </div>
+            <h2>Selecione o tipo de carro:</h2>
+            <div class="button-group">
+                <button class="car-type-btn" data-car="SUV">SUV</button>
+                <button class="car-type-btn" data-car="Hatch">Hatch</button>
+                <button class="car-type-btn" data-car="Sedã">Sedã</button>
+                <button class="car-type-btn" data-car="Picape">Picape</button>
+            </div>
+        </section>
+
+        <section id="services-display" style="display: none;">
+            <h2 id="car-type-title"></h2>
+            <div id="services-content"></div>
+            <button id="back-to-selection" class="back-button">Voltar à Seleção</button>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carTypeButtons = document.querySelectorAll('.car-type-btn');
+            const backButton = document.getElementById('back-to-selection');
+            const carSelectionSection = document.getElementById('car-selection');
+            const servicesDisplaySection = document.getElementById('services-display');
+            const carTypeTitle = document.getElementById('car-type-title');
+            const servicesContent = document.getElementById('services-content');
+
+            const carData = {
+                "SUV": {
+                    "combos": [
+                        {
+                            "name": "COMBO 01- Lavagem Detalhada",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 100,00"],
+                                ["Hidratação dos plásticos externos", "R$ 40,00"],
+                                ["Total", "R$ 140,00"],
+                                ["Total com Desconto", "R$ 130,00"]
+                            ],
+                            "includes": [
+                                "Pré-lavagem com desengraxante e espuma ativa",
+                                "Limpeza detalhada de rodas, caixas de roda e para-lamas",
+                                "Limpeza de frisos, emblemas, cantos e vãos",
+                                "Secagem com toalha de microfibra",
+                                "Limpeza dos vidros",
+                                "Aplicação de cera rápida",
+                                "Limpeza superficial do interior (painel, tapetes e aspiração)",
+                                "Limpeza e descontaminação dos plásticos externos (para-choques, frisos, retrovisores), com realce da cor original."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 02- Lavagem + Hidratação Completa",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 100,00"],
+                                ["Hidratação dos plásticos externos", "R$ 40,00"],
+                                ["Hidratação dos plásticos internos", "R$ 50,00"],
+                                ["Total", "R$ 190,00"],
+                                ["Total com Desconto", "R$ 165,00"]
+                            ],
+                            "includes": [
+                                "Todos os itens do Combo 01",
+                                "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 03- Lavagem + Vidros Protegidos",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 100,00"],
+                                ["Descontaminação e proteção dos vidros", "R$ 170,00"],
+                                ["Total", "R$ 270,00"],
+                                ["Total com Desconto", "R$ 245,00"]
+                            ],
+                            "includes": [
+                                "itens da lavagem Combo 01",
+                                "Limpeza profunda dos vidros externos",
+                                "Remoção de resíduos como chuva ácida, gordura e poluição",
+                                "Aplicação de selante hidrofóbico (repelente de água)",
+                                "Acabamento cristalino, repelência à água e maior durabilidade na limpeza."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 04 - Estética Premium com Polimento",
+                            "table": [
+                                ["Polimento comercial (incluso lavagem detalhada)", "R$ 460,00"],
+                                ["Hidratação dos plásticos externo e internos", "R$ 90,00"],
+                                ["Total", "R$ 550,00"],
+                                ["Total com Desconto", "R$ 525,00"]
+                            ],
+                            "includes": [
+                                "itens da lavagem Combo 01",
+                                "Remoção superficial de riscos leves, manchas e oxidação",
+                                "Recuperação do brilho e aparência da pintura",
+                                "Finalização com cera ou selante para proteção extra."
+                            ]
+                        }
+                    ],
+                    "additionalServices": [
+                        {
+                            "type": "Limpeza dos Faróis (amarelados)",
+                            "value": "R$ 50,00 cada.",
+                            "description": "Remoção do amarelado e opacidade dos faróis, devolvendo a transparência e melhorando a iluminação do veículo. Ideal para segurança e estética."
+                        },
+                        {
+                            "type": "Lavagem simples externa (sem cera)",
+                            "value": "R$ 80,00",
+                            "description": "Lavagem básica da parte externa do veículo, vidros, rodas e remoção de sujeiras leves. Não inclui aplicação de cera."
+                        },
+                        {
+                            "type": "Limpeza a seco - motor",
+                            "value": "R$ 90,00",
+                            "description": "Higienização do compartimento do motor utilizando produtos específicos sem uso de água, preservando a parte elétrica e componentes sensíveis. Serviço seguro e eficiente para valorização do veículo."
+                        },
+                        {
+                            "type": "Higienização e Hidratação dos Bancos de Couro",
+                            "value": "R$ 120,00",
+                            "description": "Limpeza profunda dos bancos de couro com produtos adequados, removendo sujeira, suor e oleosidade. Finalizado com hidratação para preservar a maciez, evitar rachaduras e prolongar a vida útil do couro."
+                        },
+                        {
+                            "type": "Limpeza Interna Completa",
+                            "value": "R$ 100,00",
+                            "description": "Limpeza detalhada de todo o interior do veículo, incluindo aspiração profunda, limpeza de bancos (tecido superficial e couro, limpeza com produto), forros, painel, portas, carpetes e porta-malas. Utiliza produtos específicos para higienização, eliminando sujeiras, odores e revitalizando o ambiente interno."
+                        }
+                    ]
+                },
+                "Hatch": {
+                    "combos": [
+                        {
+                            "name": "COMBO 01- Lavagem Detalhada",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 80,00"],
+                                ["Hidratação dos plásticos externos", "R$ 30,00"],
+                                ["Total", "R$ 110,00"],
+                                ["Total com Desconto", "R$ 100,00"]
+                            ],
+                            "includes": [
+                                "Pré-lavagem com desengraxante e espuma ativa",
+                                "Limpeza detalhada de rodas, caixas de roda e para-lamas",
+                                "Limpeza de frisos, emblemas, cantos e vãos",
+                                "Secagem com toalha de microfibra",
+                                "Limpeza dos vidros",
+                                "Aplicação de cera rápida",
+                                "Limpeza superficial do interior (painel, tapetes e aspiração)",
+                                "Limpeza e descontaminação dos plásticos externos (para-choques, frisos, retrovisores), com realce da cor original."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 02- Lavagem + Hidratação Completa",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$80,00"],
+                                ["Hidratação dos plásticos externos", "R$30,00"],
+                                ["Hidratação dos plásticos internos", "R$ 40,00"],
+                                ["Total", "R$ 150,00"],
+                                ["Total com Desconto", "R$ 125,00"]
+                            ],
+                            "includes": [
+                                "Todos os itens do Combo 01",
+                                "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 03- Lavagem + Vidros Protegidos",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 80,00"],
+                                ["Descontaminação e proteção dos vidros", "R$ 150,00"],
+                                ["Total", "R$ 230,00"],
+                                ["Total com Desconto", "R$ 215,00"]
+                            ],
+                            "includes": [
+                                "itens da lavagem Combo 01",
+                                "Limpeza profunda dos vidros externos",
+                                "Remoção de resíduos como chuva ácida, gordura e poluição",
+                                "Aplicação de selante hidrofóbico (repelente de água)",
+                                "Acabamento cristalino, repelência à água e maior durabilidade na limpeza."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 04 - Estética Premium com Polimento",
+                            "table": [
+                                ["Polimento comercial (incluso lavagem detalhada)", "R$ 260,00"],
+                                ["Hidratação dos plásticos externo e internos", "R$ 70,00"],
+                                ["Total", "R$ 330,00"],
+                                ["Total com Desconto", "R$ 305,00"]
+                            ],
+                            "includes": [
+                                "itens da lavagem Combo 01",
+                                "Remoção superficial de riscos leves, manchas e oxidação",
+                                "Recuperação do brilho e aparência da pintura",
+                                "Finalização com cera ou selante para proteção extra."
+                            ]
+                        }
+                    ],
+                    "additionalServices": [
+                        {
+                            "type": "Limpeza dos Faróis (amarelados)",
+                            "value": "R$50,00 cada.",
+                            "description": "Remoção do amarelado e opacidade dos faróis, devolvendo a transparência e melhorando a iluminação do veículo. Ideal para segurança e estética."
+                        },
+                        {
+                            "type": "Lavagem simples externa (sem cera)",
+                            "value": "R$ 60,00",
+                            "description": "Lavagem básica da parte externa do veículo, vidros, rodas e remoção de sujeiras leves. Não inclui aplicação de cera."
+                        },
+                        {
+                            "type": "Limpeza a seco - motor",
+                            "value": "R$ 70,00",
+                            "description": "Higienização do compartimento do motor utilizando produtos específicos sem uso de água, preservando a parte elétrica e componentes sensíveis. Serviço seguro e eficiente para valorização do veículo."
+                        },
+                        {
+                            "type": "Higienização e Hidratação dos Bancos de Couro",
+                            "value": "R$ 90,00",
+                            "description": "Limpeza profunda dos bancos de couro com produtos adequados, removendo sujeira, suor e oleosidade. Finalizado com hidratação para preservar a maciez, evitar rachaduras e prolongar a vida útil do couro."
+                        },
+                        {
+                            "type": "Limpeza Interna Completa",
+                            "value": "R$ 60,00",
+                            "description": "Limpeza detalhada de todo o interior do veículo, incluindo aspiração profunda, limpeza de bancos (tecido superficial e couro, limpeza com produto), forros, painel, portas, carpetes e porta-malas. Utiliza produtos específicos para higienização, eliminando sujeiras, odores e revitalizando o ambiente interno."
+                        }
+                    ]
+                },
+                "Sedã": {
+                    "combos": [
+                        {
+                            "name": "COMBO 01- Lavagem Detalhada",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 90,00"],
+                                ["Hidratação dos plásticos externos", "R$ 40,00"],
+                                ["Total", "R$ 130,00"],
+                                ["Total com Desconto", "R$ 120,00"]
+                            ],
+                            "includes": [
+                                "Pré-lavagem com desengraxante e espuma ativa",
+                                "Limpeza detalhada de rodas, caixas de roda e para-lamas",
+                                "Limpeza de frisos, emblemas, cantos e vãos",
+                                "Secagem com toalha de microfibra",
+                                "Limpeza dos vidros",
+                                "Aplicação de cera rápida",
+                                "Limpeza superficial do interior (painel, tapetes e aspiração)",
+                                "Limpeza e descontaminação dos plásticos externos (para-choques, frisos, retrovisores), com realce da cor original."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 02- Lavagem + Hidratação Completa",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 90,00"],
+                                ["Hidratação dos plásticos externos", "R$ 40,00"],
+                                ["Hidratação dos plásticos internos", "R$ 50,00"],
+                                ["Total", "R$ 180,00"],
+                                ["Total com Desconto", "R$ 155,00"]
+                            ],
+                            "includes": [
+                                "Todos os itens do Combo 01",
+                                "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 03- Lavagem + Vidros Protegidos",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 90,00"],
+                                ["Descontaminação e proteção dos vidros", "R$ 160,00"],
+                                ["Total", "R$ 250,00"],
+                                ["Total com Desconto", "R$ 225,00"]
+                            ],
+                            "includes": [
+                                "itens da lavagem Combo 01",
+                                "Limpeza profunda dos vidros externos",
+                                "Remoção de resíduos como chuva ácida, gordura e poluição",
+                                "Aplicação de selante hidrofóbico (repelente de água)",
+                                "Acabamento cristalino, repelência à água e maior durabilidade na limpeza."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 04 - Estética Premium com Polimento",
+                            "table": [
+                                ["Polimento comercial (incluso lavagem detalhada)", "R$ 360,00"],
+                                ["Hidratação dos plásticos externo e internos", "R$ 90,00"],
+                                ["Total", "R$ 450,00"],
+                                ["Total com Desconto", "R$ 425,00"]
+                            ],
+                            "includes": [
+                                "itens da lavagem Combo 01",
+                                "Remoção superficial de riscos leves, manchas e oxidação",
+                                "Recuperação do brilho e aparência da pintura",
+                                "Finalização com cera ou selante para proteção extra."
+                            ]
+                        }
+                    ],
+                    "additionalServices": [
+                        {
+                            "type": "Limpeza dos Faróis (amarelados)",
+                            "value": "R$ 50,00 cada.",
+                            "description": "Remoção do amarelado e opacidade dos faróis, devolvendo a transparência e melhorando a iluminação do veículo. Ideal para segurança e estética."
+                        },
+                        {
+                            "type": "Lavagem simples externa (sem cera)",
+                            "value": "R$ 70,00",
+                            "description": "Lavagem básica da parte externa do veículo, vidros, rodas e remoção de sujeiras leves. Não inclui aplicação de cera."
+                        },
+                        {
+                            "type": "Limpeza a seco - motor",
+                            "value": "R$ 80,00",
+                            "description": "Higienização do compartimento do motor utilizando produtos específicos sem uso de água, preservando a parte elétrica e componentes sensíveis. Serviço seguro e eficiente para valorização do veículo."
+                        },
+                        {
+                            "type": "Polimento Comercial",
+                            "value": "R$ 360,00",
+                            "description": "Polimento com acabamento profissional para remoção de micro riscos, marcas superficiais e oxidação da pintura. Devolve o brilho ao veículo e melhora a aparência geral, ideal para revitalização."
+                        },
+                        {
+                            "type": "Higienização e Hidratação dos Bancos de Couro",
+                            "value": "R$ 120,00",
+                            "description": "Limpeza profunda dos bancos de couro com produtos adequados, removendo sujeira, suor e oleosidade. Finalizado com hidratação para preservar a maciez, evitar rachaduras e prolongar a vida útil do couro."
+                        },
+                        {
+                            "type": "Limpeza Interna Completa",
+                            "value": "R$ 80,00",
+                            "description": "Limpeza detalhada de todo o interior do veículo, incluindo aspiração profunda, limpeza de bancos (tecido superficial e couro, limpeza com produto), forros, painel, portas, carpetes e porta-malas. Utiliza produtos específicos para higienização, eliminando sujeiras, odores e revitalizando o ambiente interno."
+                        }
+                    ]
+                },
+                "Picape": {
+                    "combos": [
+                        {
+                            "name": "COMBO 01- Lavagem Detalhada",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 120,00"],
+                                ["Hidratação dos plásticos externos", "R$ 50,00"],
+                                ["Total", "R$ 170,00"],
+                                ["Total com Desconto", "R$ 160,00"]
+                            ],
+                            "includes": [
+                                "Pré-lavagem com desengraxante e espuma ativa",
+                                "Limpeza detalhada de rodas, caixas de roda e para-lamas",
+                                "Limpeza de frisos, emblemas, cantos e vãos",
+                                "Secagem com toalha de microfibra",
+                                "Limpeza dos vidros",
+                                "Aplicação de cera rápida",
+                                "Limpeza superficial do interior (painel, tapetes e aspiração)",
+                                "Limpeza e descontaminação dos plásticos externos (para-choques, frisos, retrovisores), com realce da cor original."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 02- Lavagem + Hidratação Completa",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$120,00"],
+                                ["Hidratação dos plásticos externos", "R$ 50,00"],
+                                ["Hidratação dos plásticos internos", "R$ 60,00"],
+                                ["Total", "R$ 230,00"],
+                                ["Total com Desconto", "R$ 205,00"]
+                            ],
+                            "includes": [
+                                "Todos os itens do Combo 01",
+                                "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 03- Lavagem + Vidros Protegidos",
+                            "table": [
+                                ["Lavagem externa completa com aplicação de cera", "R$ 120,00"],
+                                ["Descontaminação e proteção dos vidros", "R$ 180,00"],
+                                ["Total", "R$ 300,00"],
+                                ["Total com Desconto", "R$ 275,00"]
+                            ],
+                            "includes": [
+                                "itens da lavagem Combo 01",
+                                "Limpeza profunda dos vidros externos",
+                                "Remoção de resíduos como chuva ácida, gordura e poluição",
+                                "Aplicação de selante hidrofóbico (repelente de água)",
+                                "Acabamento cristalino, repelência à água e maior durabilidade na limpeza."
+                            ]
+                        },
+                        {
+                            "name": "COMBO 04 - Estética Premium com Polimento",
+                            "table": [
+                                ["Polimento comercial (incluso lavagem detalhada)", "R$ 560,00"],
+                                ["Hidratação dos plásticos externo e internos", "R$ 120,00"],
+                                ["Total", "R$ 680,00"],
+                                ["Total com Desconto", "R$ 655,00"]
+                            ],
+                            "includes": [
+                                "itens da lavagem Combo 01",
+                                "Remoção superficial de riscos leves, manchas e oxidação",
+                                "Recuperação do brilho e aparência da pintura",
+                                "Finalização com cera ou selante para proteção extra."
+                            ]
+                        }
+                    ],
+                    "additionalServices": [
+                        {
+                            "type": "Limpeza dos Faróis (amarelados)",
+                            "value": "R$ 50,00 cada.",
+                            "description": "Remoção do amarelado e opacidade dos faróis, devolvendo a transparência e melhorando a iluminação do veículo. Ideal para segurança e estética."
+                        },
+                        {
+                            "type": "Lavagem simples externa (sem cera)",
+                            "value": "R$ 90,00",
+                            "description": "Lavagem básica da parte externa do veículo, vidros, rodas e remoção de sujeiras leves. Não inclui aplicação de cera."
+                        },
+                        {
+                            "type": "Limpeza a seco - motor",
+                            "value": "R$ 140,00",
+                            "description": "Higienização do compartimento do motor utilizando produtos específicos sem uso de água, preservando a parte elétrica e componentes sensíveis. Serviço seguro e eficiente para valorização do veículo."
+                        },
+                        {
+                            "type": "Higienização e Hidratação dos Bancos de Couro",
+                            "value": "R$ 150,00",
+                            "description": "Limpeza profunda dos bancos de couro com produtos adequados, removendo sujeira, suor e oleosidade. Finalizado com hidratação para preservar a maciez, evitar rachaduras e prolongar a vida útil do couro."
+                        },
+                        {
+                            "type": "Limpeza Interna Completa",
+                            "value": "R$ 130,00",
+                            "description": "Limpeza detalhada de todo o interior do veículo, incluindo aspiração profunda, limpeza de bancos (tecido superficial e couro, limpeza com produto), forros, painel, portas, carpetes e porta-malas. Utiliza produtos específicos para higienização, eliminando sujeiras, odores e revitalizando o ambiente interno."
+                        }
+                    ]
+                }
+            };
+
+            carTypeButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const carType = event.target.dataset.car;
+                    displayServices(carType);
+                });
+            });
+
+            backButton.addEventListener('click', () => {
+                carSelectionSection.style.display = 'block';
+                servicesDisplaySection.style.display = 'none';
+                servicesContent.innerHTML = ''; // Limpa o conteúdo ao voltar
+            });
+
+            function displayServices(carType) {
+                const data = carData[carType];
+                if (!data) {
+                    servicesContent.innerHTML = '<p>Dados não encontrados para este tipo de carro.</p>';
+                    return;
+                }
+
+                carTypeTitle.textContent = `Serviços para Carro ${carType}`;
+                servicesContent.innerHTML = ''; // Limpa o conteúdo anterior
+
+                // Seção de Combos
+                const combosSection = document.createElement('div');
+                combosSection.innerHTML = '<h2>Pacotes de Serviços (Combos)</h2>';
+                data.combos.forEach(combo => {
+                    const comboDiv = document.createElement('div');
+                    comboDiv.classList.add('combo-section');
+                    comboDiv.innerHTML = `<h3>${combo.name}</h3>`;
+
+                    // Tabela de Preços
+                    let tableHtml = '<table><thead><tr><th>SERVIÇOS</th><th>Valor Individual</th></tr></thead><tbody>';
+                    combo.table.forEach(row => {
+                        // Adiciona a classe 'highlight-bold' se a linha contiver "Total" ou "Total com Desconto"
+                        const rowClass = (row[0].includes("Total") || row[0].includes("Total com Desconto")) ? ' class="highlight-bold"' : '';
+                        tableHtml += `<tr${rowClass}><td>${row[0]}</td><td>${row[1]}</td></tr>`;
+                    });
+                    tableHtml += '</tbody></table>';
+                    comboDiv.innerHTML += tableHtml;
+
+                    // Itens Incluídos
+                    if (combo.includes && combo.includes.length > 0) {
+                        let includesHtml = '<h4>Inclui:</h4><ul>';
+                        combo.includes.forEach(item => {
+                            includesHtml += `<li>${item}</li>`;
+                        });
+                        includesHtml += '</ul>';
+                        comboDiv.innerHTML += includesHtml; // Adiciona o HTML de inclusões ao div do combo
+                    }
+                    servicesContent.appendChild(comboDiv);
+                });
+
+                // Seção de Serviços Adicionais
+                const additionalServicesSection = document.createElement('div');
+                additionalServicesSection.classList.add('additional-services');
+                additionalServicesSection.innerHTML = '<h2>Serviços Adicionais</h2>';
+                if (data.additionalServices && data.additionalServices.length > 0) {
+                    data.additionalServices.forEach(service => {
+                        const serviceItemDiv = document.createElement('div');
+                        serviceItemDiv.classList.add('service-item');
+                        serviceItemDiv.innerHTML = `
+                            <h4>${service.type}</h4>
+                            <p class="price">Valor: ${service.value}</p>
+                            <p>${service.description}</p>
+                        `;
+                        additionalServicesSection.appendChild(serviceItemDiv);
+                    });
+                } else {
+                    additionalServicesSection.innerHTML += '<p>Nenhum serviço adicional disponível para este tipo de carro.</p>';
+                }
+                servicesContent.appendChild(additionalServicesSection);
+
+
+                carSelectionSection.style.display = 'none';
+                servicesDisplaySection.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
