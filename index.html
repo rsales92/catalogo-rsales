@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSales Lavacar - Estética Automotiva Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <style>
         :root {
             --primary-red: #dc3545;
@@ -594,7 +595,7 @@
 
 <body>
     <header>
-               <h1>RSales Lavacar</h1>
+        <h1>RSales Lavacar</h1>
     </header>
 
     <section class="hero-section">
@@ -621,8 +622,7 @@
             <h2>Nossos Serviços em Destaque</h2>
             <div class="service-cards">
                 <div class="service-card">
-                    <img src="detalhada.jpg"
-                        alt="Lavagem Detalhada de Carro">
+                    <img src="detalhada.jpg" alt="Lavagem Detalhada de Carro">
                     <div class="service-card-content">
                         <h3>Lavagem Detalhada</h3>
                         <p>Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.</p>
@@ -630,8 +630,7 @@
                     </div>
                 </div>
                 <div class="service-card">
-                    <img src="polimento.jpg"
-                        alt="Polimento Automotivo">
+                    <img src="polimento.jpg" alt="Polimento Automotivo">
                     <div class="service-card-content">
                         <h3>Polimento Comercial</h3>
                         <p>Remoção de riscos leves e manchas, restaurando o brilho original da pintura do seu veículo.
@@ -640,8 +639,7 @@
                     </div>
                 </div>
                 <div class="service-card">
-                    <img src="couro.jpeg"
-                        alt="Hidratação de Bancos de Couro">
+                    <img src="couro.jpeg" alt="Hidratação de Bancos de Couro">
                     <div class="service-card-content">
                         <h3>Hidratação de Couro</h3>
                         <p>Limpeza e hidratação profunda para manter seus bancos de couro macios e livres de rachaduras.
@@ -668,7 +666,6 @@
                 Explore nossos serviços! Você pode escolher itens avulsos ou optar por nossos combos especiais para
                 aproveitar descontos incríveis.
             </p>
-
             <h2>Selecione o tipo de carro:</h2>
             <div class="button-group">
                 <button class="car-type-btn" data-car="SUV">SUV</button>
@@ -732,6 +729,8 @@
     </footer>
 
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/rsaleslavacar/agendamento', text: 'Agende um horário', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const carTypeButtons = document.querySelectorAll('.car-type-btn');
@@ -748,8 +747,8 @@
                         "table": [
                             ["Lavagem externa completa com aplicação de cera", "R$ 100,00"],
                             ["Hidratação dos plásticos externos", "R$ 40,00"],
-                            ["Total", "R$ 140,00"],
-                            ["Total com Desconto", "R$ 130,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 140,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 130,00</span>"]
                         ],
                         "includes": [
                             "Pré-lavagem com desengraxante e espuma ativa",
@@ -767,8 +766,8 @@
                             ["Lavagem externa completa com aplicação de cera", "R$ 100,00"],
                             ["Hidratação dos plásticos externos", "R$ 40,00"],
                             ["Hidratação dos plásticos internos", "R$ 50,00"],
-                            ["Total", "R$ 190,00"],
-                            ["Total com Desconto", "R$ 165,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 190,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 165,00</span>"]
                         ],
                         "includes": [
                             "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original."
@@ -778,8 +777,8 @@
                         "table": [
                             ["Lavagem externa completa com aplicação de cera", "R$ 100,00"],
                             ["Descontaminação e proteção dos vidros", "R$ 170,00"],
-                            ["Total", "R$ 270,00"],
-                            ["Total com Desconto", "R$ 245,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 270,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 245,00</span>"]
                         ],
                         "includes": [
                             "Limpeza profunda dos vidros externos",
@@ -792,8 +791,8 @@
                         "table": [
                             ["Polimento comercial (incluso lavagem detalhada)", "R$ 460,00"],
                             ["Hidratação dos plásticos externo e internos", "R$ 90,00"],
-                            ["Total", "R$ 550,00"],
-                            ["Total com Desconto", "R$ 525,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 550,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 525,00</span>"]
                         ],
                         "includes": [
                             "Remoção superficial de riscos leves, manchas e oxidação",
@@ -808,8 +807,8 @@
                         "table": [
                             ["Lavagem externa completa com aplicação de cera", "R$ 80,00"],
                             ["Hidratação dos plásticos externos", "R$ 30,00"],
-                            ["Total", "R$ 110,00"],
-                            ["Total com Desconto", "R$ 100,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 110,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 100,00</span>"]
                         ],
                         "includes": [
                             "Pré-lavagem com desengraxante e espuma ativa",
@@ -827,8 +826,8 @@
                             ["Lavagem externa completa com aplicação de cera", "R$80,00"],
                             ["Hidratação dos plásticos externos", "R$30,00"],
                             ["Hidratação dos plásticos internos", "R$ 40,00"],
-                            ["Total", "R$ 150,00"],
-                            ["Total com Desconto", "R$ 125,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 150,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 125,00</span>"]
                         ],
                         "includes": [
                             "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original."
@@ -838,8 +837,8 @@
                         "table": [
                             ["Lavagem externa completa com aplicação de cera", "R$ 80,00"],
                             ["Descontaminação e proteção dos vidros", "R$ 150,00"],
-                            ["Total", "R$ 230,00"],
-                            ["Total com Desconto", "R$ 215,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 230,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 215,00</span>"]
                         ],
                         "includes": [
                             "Limpeza profunda dos vidros externos",
@@ -852,8 +851,8 @@
                         "table": [
                             ["Polimento comercial (incluso lavagem detalhada)", "R$ 260,00"],
                             ["Hidratação dos plásticos externo e internos", "R$ 70,00"],
-                            ["Total", "R$ 330,00"],
-                            ["Total com Desconto", "R$ 305,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 330,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 305,00</span>"]
                         ],
                         "includes": [
                             "Remoção superficial de riscos leves, manchas e oxidação",
@@ -868,8 +867,8 @@
                         "table": [
                             ["Lavagem externa completa com aplicação de cera", "R$ 90,00"],
                             ["Hidratação dos plásticos externos", "R$ 35,00"],
-                            ["Total", "R$ 125,00"],
-                            ["Total com Desconto", "R$ 110,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 125,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 110,00</span>"]
                         ],
                         "includes": [
                             "Pré-lavagem com desengraxante e espuma ativa",
@@ -887,8 +886,8 @@
                             ["Lavagem externa completa com aplicação de cera", "R$ 90,00"],
                             ["Hidratação dos plásticos externos", "R$ 35,00"],
                             ["Hidratação dos plásticos internos", "R$ 45,00"],
-                            ["Total", "R$ 170,00"],
-                            ["Total com Desconto", "R$ 145,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 170,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 145,00</span>"]
                         ],
                         "includes": [
                             "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original."
@@ -898,8 +897,178 @@
                         "table": [
                             ["Lavagem externa completa com aplicação de cera", "R$ 90,00"],
                             ["Descontaminação e proteção dos vidros", "R$ 160,00"],
-                            ["Total", "R$ 250,00"],
-                            ["Total com Desconto", "R$ 225,00"]
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 250,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 225,00</span>"]
                         ],
                         "includes": [
-                            "Limpeza pr
+                            "Limpeza profunda dos vidros externos",
+                            "Remoção de resíduos como chuva ácida, gordura e poluição",
+                            "Aplicação de selante hidrofóbico (repelente de água)",
+                            "Acabamento cristalino, repelência à água e maior durabilidade na limpeza."
+                        ]
+                    }, {
+                        "name": "COMBO 04 - Estética Premium com Polimento",
+                        "table": [
+                            ["Polimento comercial (incluso lavagem detalhada)", "R$ 360,00"],
+                            ["Hidratação dos plásticos externo e internos", "R$ 80,00"],
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 440,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 415,00</span>"]
+                        ],
+                        "includes": [
+                            "Remoção superficial de riscos leves, manchas e oxidação",
+                            "Recuperação do brilho e aparência da pintura",
+                            "Finalização com cera ou selante para proteção extra."
+                        ]
+                    }]
+                },
+                "Picape": {
+                    "combos": [{
+                        "name": "COMBO 01- Lavagem Detalhada",
+                        "table": [
+                            ["Lavagem externa completa com aplicação de cera", "R$ 110,00"],
+                            ["Hidratação dos plásticos externos", "R$ 45,00"],
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 155,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 145,00</span>"]
+                        ],
+                        "includes": [
+                            "Pré-lavagem com desengraxante e espuma ativa",
+                            "Limpeza detalhada de rodas, caixas de roda e para-lamas",
+                            "Limpeza de frisos, emblemas, cantos e vãos",
+                            "Secagem com toalha de microfibra",
+                            "Limpeza dos vidros",
+                            "Aplicação de cera rápida",
+                            "Limpeza superficial do interior (painel, tapetes e aspiração)",
+                            "Limpeza e descontaminação dos plásticos externos (para-choques, frisos, retrovisores), com realce da cor original."
+                        ]
+                    }, {
+                        "name": "COMBO 02- Lavagem + Hidratação Completa",
+                        "table": [
+                            ["Lavagem externa completa com aplicação de cera", "R$ 110,00"],
+                            ["Hidratação dos plásticos externos", "R$ 45,00"],
+                            ["Hidratação dos plásticos internos", "R$ 55,00"],
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 210,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 185,00</span>"]
+                        ],
+                        "includes": [
+                            "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original."
+                        ]
+                    }, {
+                        "name": "COMBO 03- Lavagem + Vidros Protegidos",
+                        "table": [
+                            ["Lavagem externa completa com aplicação de cera", "R$ 110,00"],
+                            ["Descontaminação e proteção dos vidros", "R$ 180,00"],
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 290,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 265,00</span>"]
+                        ],
+                        "includes": [
+                            "Limpeza profunda dos vidros externos",
+                            "Remoção de resíduos como chuva ácida, gordura e poluição",
+                            "Aplicação de selante hidrofóbico (repelente de água)",
+                            "Acabamento cristalino, repelência à água e maior durabilidade na limpeza."
+                        ]
+                    }, {
+                        "name": "COMBO 04 - Estética Premium com Polimento",
+                        "table": [
+                            ["Polimento comercial (incluso lavagem detalhada)", "R$ 490,00"],
+                            ["Hidratação dos plásticos externo e internos", "R$ 100,00"],
+                            ["<span class='highlight-bold'>Total</span>", "<span class='highlight-bold'>R$ 590,00</span>"],
+                            ["<span class='highlight-bold'>Total com Desconto</span>", "<span class='highlight-bold'>R$ 565,00</span>"]
+                        ],
+                        "includes": [
+                            "Remoção superficial de riscos leves, manchas e oxidação",
+                            "Recuperação do brilho e aparência da pintura",
+                            "Finalização com cera ou selante para proteção extra."
+                        ]
+                    }]
+                }
+            };
+
+            const additionalServices = {
+                "Limpeza e hidratação de couro": "Protege e restaura o couro do seu veículo, devolvendo a maciez e o brilho originais. Previne rachaduras e o envelhecimento precoce. <br> <span class='price'>A partir de R$ 90,00</span>",
+                "Limpeza e proteção de estofados": "Lavagem a seco ou a vapor dos estofados do carro, eliminando manchas, sujeiras e odores. Aplicação de produto de proteção para evitar novas sujeiras. <br> <span class='price'>A partir de R$ 120,00</span>",
+                "Proteção de vidros": "Aplicação de um produto hidrofóbico nos vidros que melhora a visibilidade em dias de chuva, repelindo a água. <br> <span class='price'>A partir de R$ 150,00</span>",
+                "Limpeza de motor": "Lavagem detalhada do motor, removendo sujeiras e graxa. Proteção de componentes elétricos e finalização com produto para realçar o brilho. <br> <span class='price'>A partir de R$ 120,00</span>",
+                "Polimento de faróis": "Restauração do acrílico do farol, removendo o amarelado e a opacidade, melhorando a iluminação e a estética do veículo. <br> <span class='price'>A partir de R$ 80,00</span>",
+                "Polimento comercial": "Revitaliza a pintura, removendo riscos superficiais, oxidação e manchas leves, devolvendo o brilho original. <br> <span class='price'>A partir de R$ 260,00</span>"
+            };
+
+            function generateServicesHTML(carType) {
+                const data = carData[carType];
+                if (!data) return '';
+
+                let html = `
+                    <div class="appointment-message">
+                        Agende seu serviço agora mesmo pelo nosso <a href="https://calendly.com/rsaleslavacar/agendamento" target="_blank">Calendly</a>!
+                    </div>
+                `;
+
+                // Combos
+                html += `
+                    <div class="combo-services">
+                        <div class="info-text">
+                            Aproveite nossos combos especiais!
+                        </div>
+                `;
+                data.combos.forEach(combo => {
+                    html += `
+                        <div class="combo-section">
+                            <h3>${combo.name}</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Serviço</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${combo.table.map(row => `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`).join('')}
+                                </tbody>
+                            </table>
+                            <h4>O que está incluso:</h4>
+                            <ul>
+                                ${combo.includes.map(item => `<li>${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                });
+                html += `</div>`; // .combo-services
+
+                // Adicionais
+                html += `
+                    <div class="additional-services">
+                        <div class="info-text">
+                            Ou combine com nossos serviços avulsos!
+                        </div>
+                        <h3>Serviços Adicionais</h3>
+                `;
+                for (const service in additionalServices) {
+                    html += `
+                        <div class="service-item">
+                            <h4>${service}</h4>
+                            <p>${additionalServices[service]}</p>
+                        </div>
+                    `;
+                }
+                html += `</div>`; // .additional-services
+
+                return html;
+            }
+
+            carTypeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const carType = button.dataset.car;
+                    carTypeTitle.textContent = `Serviços para ${carType}`;
+                    servicesContent.innerHTML = generateServicesHTML(carType);
+                    carSelectionSection.style.display = 'none';
+                    servicesDisplaySection.style.display = 'block';
+                });
+            });
+
+            backButton.addEventListener('click', () => {
+                servicesDisplaySection.style.display = 'none';
+                carSelectionSection.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
