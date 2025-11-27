@@ -96,14 +96,13 @@
         }
 
         #floating-cart-icon {
-            /* 🚀 ALTERAÇÃO: Fundo branco e borda vermelha para parecer mais com um ícone de carrinho */
             background-color: var(--white); 
             color: var(--primary-red);
-            border: 2px solid var(--primary-red); /* Adiciona a borda vermelha */
+            border: 2px solid var(--primary-red); 
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            font-size: 28px; /* Ícone um pouco maior */
+            font-size: 28px;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s, transform 0.2s, color 0.3s;
@@ -141,7 +140,7 @@
             position: absolute;
             bottom: 75px;
             right: 0;
-            width: 300px;
+            width: 300px; /* Largura padrão para telas maiores */
             max-height: 400px;
             overflow-y: auto;
             background-color: var(--medium-grey);
@@ -212,20 +211,28 @@
             text-decoration: underline;
         }
         
+        /* 🚀 AJUSTE DA MEDIA QUERY PARA MELHOR RESPONSIVIDADE EM CELULARES */
         @media (max-width: 400px) {
             .floating-cart-wrapper {
                 bottom: 10px;
                 right: 10px;
             }
-            #cart-summary {
-                width: 90vw;
-                right: 5vw;
-                bottom: 75px;
-            }
             #floating-cart-icon {
                 width: 50px;
                 height: 50px;
                 font-size: 24px;
+            }
+            
+            #cart-summary {
+                width: 90vw; /* Ocupa 90% da largura da tela */
+                right: auto; /* Remove a fixação da direita */
+                left: 50%; /* Move para o centro */
+                transform: translateX(-50%) translateY(10px); /* Move 50% para a esquerda e 10px para baixo */
+                bottom: 65px; /* Ajusta a posição acima do ícone */
+            }
+            
+            #cart-summary.active {
+                 transform: translateX(-50%) translateY(0); /* Mantém centralizado ao abrir */
             }
         }
     </style>
@@ -336,7 +343,7 @@
             let currentCarType = '';
             let isCartOpen = false;
             
-            // 🚀 SEU NÚMERO DE WHATSAPP AQUI!
+            // Seu número de WhatsApp (Inalterado)
             const WHATSAPP_NUMBER = '5544997063542';
 
             const formatPrice = (priceText) => {
@@ -380,7 +387,6 @@
                 totalPriceSpan = document.getElementById('total-price');
                 checkoutButton = document.getElementById('checkout-button');
 
-                // Adiciona o listener para o Checkout
                 checkoutButton.addEventListener('click', handleCheckout);
             };
 
@@ -431,10 +437,8 @@
                 renderCart();
             };
             
-            // 🚀 FUNÇÃO DE CHECKOUT COM O SEU NÚMERO
             const handleCheckout = () => {
                 const total = formatPrice(totalPriceSpan.textContent);
-                // Constrói a lista de itens formatada para a mensagem
                 const itemsList = cart.map(item => `- ${item.name} (${formatToBRL(item.price)})`).join('\n');
                 
                 const checkoutMessage = 
