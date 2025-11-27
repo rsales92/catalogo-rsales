@@ -86,8 +86,9 @@
         .combo-section ul li { margin-bottom: 8px; padding-left: 20px; position: relative; color: var(--dark-grey); }
         .combo-section ul li::before { content: '•'; color: var(--primary-red); position: absolute; left: 0; }
         .back-button { display: block; width: fit-content; margin: 30px auto 0; }
-        
-        /* Carrinho Flutuante */
+
+        /* --- ESTILOS DO MODAL/POPUP CENTRALIZADA --- */
+        /* Carrinho Flutuante - Ícone */
         .floating-cart-wrapper {
             position: fixed;
             bottom: 20px;
@@ -96,9 +97,9 @@
         }
 
         #floating-cart-icon {
-            background-color: var(--white); 
+            background-color: var(--white);
             color: var(--primary-red);
-            border: 2px solid var(--primary-red); 
+            border: 2px solid var(--primary-red);
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -118,6 +119,27 @@
             color: var(--dark-red);
             transform: scale(1.05);
         }
+        
+        /* 🚀 CHAVE PARA A ANIMAÇÃO DE ADIÇÃO */
+        .cart-pulse {
+            animation: pulse-ring 0.6s ease-out;
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0px rgba(255, 0, 0, 0.7);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        }
+
 
         #cart-count {
             position: absolute;
@@ -135,35 +157,79 @@
             justify-content: center;
             pointer-events: none;
         }
-        
-        #cart-summary {
-            position: absolute;
-            bottom: 75px;
-            right: 0;
-            width: 300px; /* Largura padrão para telas maiores */
-            max-height: 400px;
-            overflow-y: auto;
-            background-color: var(--medium-grey);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            padding: 20px;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: translateY(10px);
-            opacity: 0;
-            visibility: hidden;
-            border-top: 4px solid var(--primary-red);
+
+        /* Modal do Carrinho (Fundo Escurecido) */
+        .cart-modal-overlay {
+            display: none; /* Inicia oculto */
+            position: fixed;
+            z-index: 1001; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6); 
+            justify-content: center;
+            align-items: center;
         }
 
-        #cart-summary.active {
-            transform: translateY(0);
+        .cart-modal-overlay.active {
+            display: flex; /* Exibe ao ativar */
+        }
+
+        /* Conteúdo do Modal (A Popup Centralizada) */
+        #cart-summary {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            width: 90%; 
+            max-width: 400px; 
+            max-height: 90vh; 
+            overflow-y: auto;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            border-top: 4px solid var(--primary-red);
+            position: relative;
+        }
+
+        .cart-modal-overlay.active #cart-summary {
+            transform: scale(1);
             opacity: 1;
-            visibility: visible;
         }
 
         #cart-summary h3 { color: var(--black); font-size: 18px; margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed var(--dark-grey); padding-bottom: 5px; }
         #cart-items { list-style: none; padding: 0; margin-bottom: 15px; }
-        #cart-items li { font-size: 0.9em; margin-bottom: 5px; display: flex; justify-content: space-between; color: var(--dark-grey); }
-        #cart-items li strong { color: var(--black); font-weight: 600; }
+        #cart-items li { 
+            font-size: 0.9em; 
+            margin-bottom: 8px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; /* Alinha o botão com o texto */
+            color: var(--dark-grey); 
+            border-bottom: 1px dotted var(--medium-grey);
+            padding-bottom: 5px;
+        }
+        #cart-items li span:first-child { max-width: 60%; } /* Evita que o nome do item quebre */
+        #cart-items li strong { color: var(--black); font-weight: 600; margin-right: 10px; }
+        
+        /* Estilo do botão de remoção */
+        .remove-item-btn {
+            background: none;
+            border: none;
+            color: var(--primary-red);
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 0 5px;
+            transition: color 0.2s;
+            line-height: 1;
+            margin-left: 5px;
+        }
+        .remove-item-btn:hover {
+            color: var(--dark-red);
+        }
+
         #cart-total { font-size: 1.2em; font-weight: 700; color: var(--black); display: flex; justify-content: space-between; padding: 10px 0; border-top: 2px solid var(--primary-red); }
 
         .checkout-button {
@@ -180,16 +246,22 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .checkout-button:hover {
-            background-color: var(--dark-green);
+        .checkout-button:hover { background-color: var(--dark-green); }
+        .checkout-button:disabled { background-color: #6c757d; cursor: not-allowed; }
+
+        /* Adiciona um botão de fechar (opcional) */
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--dark-grey);
+            cursor: pointer;
+            transition: color 0.2s;
         }
-        .checkout-button:disabled {
-            background-color: #6c757d;
-            cursor: not-allowed;
-        }
-        
-        #services-display #cart-summary {
-            display: none !important;
+        .close-modal:hover {
+            color: var(--primary-red);
         }
 
         .appointment-message {
@@ -210,8 +282,8 @@
         .appointment-message a:hover {
             text-decoration: underline;
         }
-        
-        /* 🚀 AJUSTE DA MEDIA QUERY PARA MELHOR RESPONSIVIDADE EM CELULARES */
+
+        /* 🚀 AJUSTE DA MEDIA QUERY PARA CELULARES */
         @media (max-width: 400px) {
             .floating-cart-wrapper {
                 bottom: 10px;
@@ -221,18 +293,6 @@
                 width: 50px;
                 height: 50px;
                 font-size: 24px;
-            }
-            
-            #cart-summary {
-                width: 90vw; /* Ocupa 90% da largura da tela */
-                right: auto; /* Remove a fixação da direita */
-                left: 50%; /* Move para o centro */
-                transform: translateX(-50%) translateY(10px); /* Move 50% para a esquerda e 10px para baixo */
-                bottom: 65px; /* Ajusta a posição acima do ícone */
-            }
-            
-            #cart-summary.active {
-                 transform: translateX(-50%) translateY(0); /* Mantém centralizado ao abrir */
             }
         }
     </style>
@@ -270,6 +330,9 @@
         </section>
     </main>
 
+    <div id="cart-modal" class="cart-modal-overlay">
+        </div>
+
     <section class="floating-cart-wrapper">
         <div id="floating-cart-icon">
             <i class="fas fa-shopping-cart"></i>
@@ -293,26 +356,26 @@
                     {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética.", "price": "R$ 60,00 cada"}
                 ],
                 "combos": [
-                    {"name": "COMBO 01 - Lavagem Detalhada", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Hidratação dos plásticos externos", "R$ 60,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 200,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 170,00</span>"]], "includes": ["Lavagem detalhada completa.", "Hidratação dos plásticos externos (para-choques, frisos)."]}, 
-                    {"name": "COMBO 02 - Lavagem + Hidratação Completa", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Hidratação dos plásticos externos", "R$ 60,00"], ["Hidratação dos plásticos internos", "R$ 80,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 280,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 238,00</span>"]], "includes": ["Itens do Combo 01", "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles)."]}, 
-                    {"name": "COMBO 03 - Lavagem Detalhada + Vidros Protegidos", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Descontaminação e proteção dos vidros", "R$ 170,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 310,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 263,00</span>"]], "includes": ["Lavagem detalhada completa.", "Limpeza profunda, remoção de chuva ácida e aplicação de selante hidrofóbico nos vidros."]}, 
+                    {"name": "COMBO 01 - Lavagem Detalhada", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Hidratação dos plásticos externos", "R$ 60,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 200,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 170,00</span>"]], "includes": ["Lavagem detalhada completa.", "Hidratação dos plásticos externos (para-choques, frisos)."]},
+                    {"name": "COMBO 02 - Lavagem + Hidratação Completa", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Hidratação dos plásticos externos", "R$ 60,00"], ["Hidratação dos plásticos internos", "R$ 80,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 280,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 238,00</span>"]], "includes": ["Itens do Combo 01", "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles)."]},
+                    {"name": "COMBO 03 - Lavagem Detalhada + Vidros Protegidos", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Descontaminação e proteção dos vidros", "R$ 170,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 310,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 263,00</span>"]], "includes": ["Lavagem detalhada completa.", "Limpeza profunda, remoção de chuva ácida e aplicação de selante hidrofóbico nos vidros."]},
                     {"name": "COMBO 04 - Estética Premium com Polimento", "table": [["Lavagem + Polimento Comercial", "R$ 490,00"], ["Descontaminação e proteção dos vidros", "R$ 170,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 660,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 560,00</span>"]], "includes": ["Lavagem com descontaminação de pintura", "Polimento para remoção de riscos leves e manchas.", "Recuperação do brilho e aparência da pintura."]}
                 ]
             },
             "Hatch": {
                 "additional_services": [
-                    {"name": "Lavagem detalhada (com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.", "price": "R$ 110,00"}, 
-                    {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"}, 
-                    {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"}, 
-                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"}, 
-                    {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"}, 
-                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 350,00"}, 
+                    {"name": "Lavagem detalhada (com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.", "price": "R$ 110,00"},
+                    {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
+                    {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
+                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
+                    {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
+                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 350,00"},
                     {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 50,00 cada"}
                 ],
                 "combos": [
-                    {"name": "COMBO 01 - Lavagem Detalhada", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Hidratação dos plásticos externos", "R$ 40,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 150,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 127,00</span>"]], "includes": ["Lavagem detalhada completa.", "Hidratação dos plásticos externos."]}, 
-                    {"name": "COMBO 02 - Lavagem + Hidratação Completa", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Hidratação dos plásticos externos", "R$ 40,00"], ["Hidratação dos plásticos internos", "R$ 60,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 210,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 178,00</span>"]], "includes": ["Itens do Combo 01", "Limpeza e descontaminação dos plásticos internos."]}, 
-                    {"name": "COMBO 03 - Lavagem Detalhada + Vidros Protegidos", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Descontaminação e proteção dos vidros", "R$ 150,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 260,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 221,00</span>"]], "includes": ["Lavagem detalhada completa.", "Limpeza profunda, remoção de chuva ácida e aplicação de selante hidrofóbico nos vidros."]}, 
+                    {"name": "COMBO 01 - Lavagem Detalhada", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Hidratação dos plásticos externos", "R$ 40,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 150,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 127,00</span>"]], "includes": ["Lavagem detalhada completa.", "Hidratação dos plásticos externos."]},
+                    {"name": "COMBO 02 - Lavagem + Hidratação Completa", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Hidratação dos plásticos externos", "R$ 40,00"], ["Hidratação dos plásticos internos", "R$ 60,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 210,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 178,00</span>"]], "includes": ["Itens do Combo 01", "Limpeza e descontaminação dos plásticos internos."]},
+                    {"name": "COMBO 03 - Lavagem Detalhada + Vidros Protegidos", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Descontaminação e proteção dos vidros", "R$ 150,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 260,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 221,00</span>"]], "includes": ["Lavagem detalhada completa.", "Limpeza profunda, remoção de chuva ácida e aplicação de selante hidrofóbico nos vidros."]},
                     {"name": "COMBO 04 - Estética Premium com Polimento", "table": [["Lavagem + Polimento comercial", "R$ 350,00"], ["Descontaminação e proteção dos vidros", "R$ 150,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 500,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 425,00</span>"]], "includes": ["Lavagem com descontaminação de pintura", "Polimento para remoção de riscos leves e manchas.", "Recuperação do brilho e aparência da pintura."]}
                 ]
             }
@@ -330,19 +393,19 @@
             const carTypeTitle = document.getElementById('car-type-title');
             const servicesContent = document.getElementById('services-content');
             
-            const floatingCartWrapper = document.querySelector('.floating-cart-wrapper');
             const floatingCartIcon = document.getElementById('floating-cart-icon');
             const cartCountSpan = document.getElementById('cart-count');
             
-            let cartSummaryElement;
+            const cartModalOverlay = document.getElementById('cart-modal');
             let cartItemsList;
             let totalPriceSpan;
             let checkoutButton;
 
+            // O ID agora é importante para a remoção
             let cart = [];
             let currentCarType = '';
-            let isCartOpen = false;
-            
+            let nextItemId = 0; // ID único para cada item no carrinho
+
             // Seu número de WhatsApp (Inalterado)
             const WHATSAPP_NUMBER = '5544997063542';
 
@@ -359,16 +422,26 @@
                 }).format(number);
             };
 
+            // Função para a animação
+            const animateCart = () => {
+                floatingCartIcon.classList.remove('cart-pulse');
+                // Força o reflow (reset da animação)
+                void floatingCartIcon.offsetWidth; 
+                floatingCartIcon.classList.add('cart-pulse');
+            }
+
             const toggleFloatingCart = () => {
-                if (!cartSummaryElement) return;
-                
-                isCartOpen = !isCartOpen;
-                cartSummaryElement.classList.toggle('active', isCartOpen);
+                if (cartModalOverlay.classList.contains('active')) {
+                    cartModalOverlay.classList.remove('active');
+                } else {
+                    cartModalOverlay.classList.add('active');
+                }
             };
             
             const createCartSummaryHTML = () => {
                 const summaryHTML = `
                     <section id="cart-summary">
+                        <span class="close-modal">&times;</span>
                         <h3>🛒 Carrinho de Serviços Avulsos</h3>
                         <ul id="cart-items">
                             <li>Nenhum serviço avulso selecionado.</li>
@@ -380,18 +453,34 @@
                         <button id="checkout-button" class="checkout-button" disabled>Finalizar Compra e Agendar</button>
                     </section>
                 `;
-                floatingCartWrapper.insertAdjacentHTML('beforeend', summaryHTML);
                 
-                cartSummaryElement = document.getElementById('cart-summary');
+                cartModalOverlay.innerHTML = summaryHTML;
+                
                 cartItemsList = document.getElementById('cart-items');
                 totalPriceSpan = document.getElementById('total-price');
                 checkoutButton = document.getElementById('checkout-button');
 
                 checkoutButton.addEventListener('click', handleCheckout);
+                document.querySelector('.close-modal').addEventListener('click', toggleFloatingCart);
+                
+                cartModalOverlay.addEventListener('click', (event) => {
+                    if (event.target === cartModalOverlay) {
+                        toggleFloatingCart();
+                    }
+                });
             };
 
+            // NOVO: Função para remover um item
+            const removeItem = (itemId) => {
+                const index = cart.findIndex(item => item.id === itemId);
+                if (index > -1) {
+                    cart.splice(index, 1);
+                    renderCart();
+                }
+            };
+            
             const renderCart = () => {
-                if (!cartSummaryElement) {
+                if (!cartItemsList) {
                     createCartSummaryHTML();
                 }
 
@@ -404,11 +493,27 @@
                 } else {
                     cart.forEach(item => {
                         const li = document.createElement('li');
-                        li.innerHTML = `<span>${item.name}</span><strong>${formatToBRL(item.price)}</strong>`;
+                        // Adicionando o ID e o botão de remover
+                        li.setAttribute('data-id', item.id); 
+                        li.innerHTML = `
+                            <span>${item.name}</span>
+                            <div>
+                                <strong>${formatToBRL(item.price)}</strong>
+                                <button class="remove-item-btn" data-id="${item.id}" title="Remover item">&times;</button>
+                            </div>
+                        `;
                         cartItemsList.appendChild(li);
                         total += item.price;
                     });
                     checkoutButton.disabled = false;
+                    
+                    // Adiciona o listener de remoção a todos os novos botões
+                    document.querySelectorAll('.remove-item-btn').forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            const itemId = parseInt(event.target.dataset.id);
+                            removeItem(itemId);
+                        });
+                    });
                 }
 
                 totalPriceSpan.textContent = formatToBRL(total);
@@ -421,16 +526,20 @@
                 const checkbox = event.target;
                 const serviceName = checkbox.dataset.name;
                 const servicePrice = formatPrice(checkbox.dataset.price);
+                const serviceId = nextItemId++; // Cria um novo ID
 
                 if (checkbox.checked) {
                     cart.push({
+                        id: serviceId, // Adiciona o ID ao item
                         name: serviceName,
                         price: servicePrice
                     });
+                    animateCart(); // 🚀 Chama a animação ao adicionar
                 } else {
-                    const index = cart.findIndex(item => item.name === serviceName && item.price === servicePrice);
-                    if (index > -1) {
-                        cart.splice(index, 1);
+                    // Ao desmarcar, precisamos encontrar o item para remover
+                    const itemToRemove = cart.find(item => item.name === serviceName);
+                    if (itemToRemove) {
+                         removeItem(itemToRemove.id);
                     }
                 }
 
@@ -529,14 +638,17 @@ Total: ${formatToBRL(total)}
 
                 const checkboxes = servicesContent.querySelectorAll('input[type="checkbox"]');
                 checkboxes.forEach(checkbox => {
+                    // Limpamos o carrinho ao mudar de carro
+                    checkbox.checked = false;
                     checkbox.addEventListener('change', handleCheckboxChange);
                 });
                 
-                if (!cartSummaryElement) {
-                     createCartSummaryHTML();
+                if (!cartItemsList) {
+                    createCartSummaryHTML();
                 }
 
-                cart = [];
+                cart = []; 
+                nextItemId = 0; // Reinicia o ID
                 renderCart();
             };
 
@@ -544,9 +656,10 @@ Total: ${formatToBRL(total)}
                 carSelectionSection.style.display = 'block';
                 servicesDisplaySection.style.display = 'none';
                 cart = []; 
+                nextItemId = 0;
                 renderCart();
-                isCartOpen = true;
-                toggleFloatingCart();
+                
+                cartModalOverlay.classList.remove('active'); 
             };
 
             carTypeButtons.forEach(button => {
@@ -560,6 +673,7 @@ Total: ${formatToBRL(total)}
             });
 
             backButton.addEventListener('click', backToSelection);
+            
             floatingCartIcon.addEventListener('click', toggleFloatingCart);
 
             createCartSummaryHTML();
