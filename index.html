@@ -65,7 +65,7 @@
         .car-type-btn.active { background-color: var(--dark-red); border: 2px solid var(--primary-red); }
 
         /* Serviços Avulsos */
-        .additional-services { padding-top: 10px; margin-bottom: 40px; }
+        .additional-services { padding: 0 20px; padding-top: 10px; margin-bottom: 40px; }
         .additional-services h3 { color: var(--black); font-size: 24px; margin-bottom: 15px; text-align: center; font-weight: 700; border-bottom: 2px solid var(--medium-grey); padding-bottom: 10px; }
         .service-item { background-color: var(--light-grey); border: 1px solid var(--medium-grey); border-radius: 5px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
         .service-item input[type="checkbox"] { min-width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary-red); }
@@ -73,22 +73,12 @@
         .service-item h4 { color: var(--primary-red); margin-top: 0; margin-bottom: 5px; font-size: 1.2em; font-weight: 600; }
         .service-item .price { font-weight: bold; color: var(--black); font-size: 1.1em; display: block; margin-top: 5px; }
 
-        /* Estilos dos Combos */
-        .combo-section-group { padding: 0 20px; }
-        .combo-section-group h3 { color: var(--black); font-size: 24px; margin-bottom: 15px; text-align: center; font-weight: 700; border-bottom: 2px solid var(--medium-grey); padding-bottom: 10px; margin-top: 40px; }
-        .combo-section { background-color: var(--light-grey); border: 1px solid var(--medium-grey); border-radius: 8px; padding: 20px; margin-bottom: 25px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
-        .combo-section h4 { color: var(--primary-red); margin-top: 0; font-size: 1.3em; border-bottom: 1px solid var(--primary-red); padding-bottom: 8px; margin-bottom: 15px; font-weight: 600; }
-        .combo-section table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-        .combo-section th, .combo-section td { border: 1px solid #dee2e6; padding: 10px; text-align: left; color: var(--black); }
-        .combo-section th { background-color: var(--medium-grey); color: var(--black); }
-        .highlight-bold { font-weight: bold; }
-        .combo-section ul { list-style: none; padding: 0; }
-        .combo-section ul li { margin-bottom: 8px; padding-left: 20px; position: relative; color: var(--dark-grey); }
-        .combo-section ul li::before { content: '•'; color: var(--primary-red); position: absolute; left: 0; }
+        /* Estilos dos Combos (Removidos, mas mantendo classes neutras) */
+        .combo-section-group { display: none; }
+        .combo-section { display: none; }
         .back-button { display: block; width: fit-content; margin: 30px auto 0; }
 
         /* --- ESTILOS DO MODAL/POPUP CENTRALIZADA --- */
-        /* Carrinho Flutuante - Ícone */
         .floating-cart-wrapper {
             position: fixed;
             bottom: 20px;
@@ -120,7 +110,7 @@
             transform: scale(1.05);
         }
         
-        /* 🚀 CHAVE PARA A ANIMAÇÃO DE ADIÇÃO */
+        /* Animação */
         .cart-pulse {
             animation: pulse-ring 0.6s ease-out;
         }
@@ -139,7 +129,6 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
         }
-
 
         #cart-count {
             position: absolute;
@@ -160,7 +149,7 @@
 
         /* Modal do Carrinho (Fundo Escurecido) */
         .cart-modal-overlay {
-            display: none; /* Inicia oculto */
+            display: none; 
             position: fixed;
             z-index: 1001; 
             left: 0;
@@ -174,7 +163,7 @@
         }
 
         .cart-modal-overlay.active {
-            display: flex; /* Exibe ao ativar */
+            display: flex; 
         }
 
         /* Conteúdo do Modal (A Popup Centralizada) */
@@ -206,15 +195,14 @@
             margin-bottom: 8px; 
             display: flex; 
             justify-content: space-between; 
-            align-items: center; /* Alinha o botão com o texto */
+            align-items: center; 
             color: var(--dark-grey); 
             border-bottom: 1px dotted var(--medium-grey);
             padding-bottom: 5px;
         }
-        #cart-items li span:first-child { max-width: 60%; } /* Evita que o nome do item quebre */
+        #cart-items li span:first-child { max-width: 60%; } 
         #cart-items li strong { color: var(--black); font-weight: 600; margin-right: 10px; }
         
-        /* Estilo do botão de remoção */
         .remove-item-btn {
             background: none;
             border: none;
@@ -230,7 +218,46 @@
             color: var(--dark-red);
         }
 
-        #cart-total { font-size: 1.2em; font-weight: 700; color: var(--black); display: flex; justify-content: space-between; padding: 10px 0; border-top: 2px solid var(--primary-red); }
+        .cart-subtotal {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--dark-grey);
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-top: 1px dashed var(--medium-grey);
+        }
+
+        .cart-discount {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--green); 
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+
+        #cart-total { 
+            font-size: 1.3em; 
+            font-weight: 700; 
+            color: var(--black); 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 10px 0; 
+            border-top: 2px solid var(--primary-red); 
+            margin-bottom: 5px;
+        }
+        
+        .payment-note {
+            font-size: 0.9em;
+            color: var(--dark-red);
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 5px;
+            background-color: #ffe6e6;
+            border-radius: 3px;
+            border: 1px solid var(--dark-red);
+        }
 
         .checkout-button {
             display: block;
@@ -249,7 +276,6 @@
         .checkout-button:hover { background-color: var(--dark-green); }
         .checkout-button:disabled { background-color: #6c757d; cursor: not-allowed; }
 
-        /* Adiciona um botão de fechar (opcional) */
         .close-modal {
             position: absolute;
             top: 10px;
@@ -283,7 +309,6 @@
             text-decoration: underline;
         }
 
-        /* 🚀 AJUSTE DA MEDIA QUERY PARA CELULARES */
         @media (max-width: 400px) {
             .floating-cart-wrapper {
                 bottom: 10px;
@@ -307,7 +332,7 @@
     <main class="container">
         <section id="car-selection">
             <p class="info-text">
-                Selecione a categoria do seu veículo para visualizar os preços e combos exclusivos.
+                Selecione a categoria do seu veículo para visualizar os preços e serviços disponíveis.
             </p>
             <h2>Selecione o tipo de carro:</h2>
             <div class="button-group">
@@ -343,7 +368,7 @@
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 
     <script>
-        // Estrutura de dados (Inalterada)
+        // ESTRUTURA DE DADOS (APENAS SERVIÇOS AVULSOS)
         const carData = {
             "SUV": {
                 "additional_services": [
@@ -355,12 +380,7 @@
                     {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves. Indicado para recuperar a cor e o brilho do carro.", "price": "R$ 490,00"},
                     {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética.", "price": "R$ 60,00 cada"}
                 ],
-                "combos": [
-                    {"name": "COMBO 01 - Lavagem Detalhada", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Hidratação dos plásticos externos", "R$ 60,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 200,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 170,00</span>"]], "includes": ["Lavagem detalhada completa.", "Hidratação dos plásticos externos (para-choques, frisos)."]},
-                    {"name": "COMBO 02 - Lavagem + Hidratação Completa", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Hidratação dos plásticos externos", "R$ 60,00"], ["Hidratação dos plásticos internos", "R$ 80,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 280,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 238,00</span>"]], "includes": ["Itens do Combo 01", "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles)."]},
-                    {"name": "COMBO 03 - Lavagem Detalhada + Vidros Protegidos", "table": [["Lavagem detalhada com aplicação de cera", "R$ 140,00"], ["Descontaminação e proteção dos vidros", "R$ 170,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 310,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 263,00</span>"]], "includes": ["Lavagem detalhada completa.", "Limpeza profunda, remoção de chuva ácida e aplicação de selante hidrofóbico nos vidros."]},
-                    {"name": "COMBO 04 - Estética Premium com Polimento", "table": [["Lavagem + Polimento Comercial", "R$ 490,00"], ["Descontaminação e proteção dos vidros", "R$ 170,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 660,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 560,00</span>"]], "includes": ["Lavagem com descontaminação de pintura", "Polimento para remoção de riscos leves e manchas.", "Recuperação do brilho e aparência da pintura."]}
-                ]
+                "combos": [] 
             },
             "Hatch": {
                 "additional_services": [
@@ -372,17 +392,14 @@
                     {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 350,00"},
                     {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 50,00 cada"}
                 ],
-                "combos": [
-                    {"name": "COMBO 01 - Lavagem Detalhada", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Hidratação dos plásticos externos", "R$ 40,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 150,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 127,00</span>"]], "includes": ["Lavagem detalhada completa.", "Hidratação dos plásticos externos."]},
-                    {"name": "COMBO 02 - Lavagem + Hidratação Completa", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Hidratação dos plásticos externos", "R$ 40,00"], ["Hidratação dos plásticos internos", "R$ 60,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 210,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 178,00</span>"]], "includes": ["Itens do Combo 01", "Limpeza e descontaminação dos plásticos internos."]},
-                    {"name": "COMBO 03 - Lavagem Detalhada + Vidros Protegidos", "table": [["Lavagem detalhada com aplicação de cera", "R$ 110,00"], ["Descontaminação e proteção dos vidros", "R$ 150,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 260,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 221,00</span>"]], "includes": ["Lavagem detalhada completa.", "Limpeza profunda, remoção de chuva ácida e aplicação de selante hidrofóbico nos vidros."]},
-                    {"name": "COMBO 04 - Estética Premium com Polimento", "table": [["Lavagem + Polimento comercial", "R$ 350,00"], ["Descontaminação e proteção dos vidros", "R$ 150,00"], ["<span class='highlight-bold'>Total Avulso</span>", "<span class='highlight-bold'>R$ 500,00</span>"], ["<span class='highlight-bold' style='color: var(--dark-red);'>Preço do Combo (Desconto)</span>", "<span class='highlight-bold' style='color: var(--dark-red);'>R$ 425,00</span>"]], "includes": ["Lavagem com descontaminação de pintura", "Polimento para remoção de riscos leves e manchas.", "Recuperação do brilho e aparência da pintura."]}
-                ]
+                "combos": [] 
             }
         };
 
         carData.Sedã = carData.Hatch;
+        carData.Sedã.combos = [];
         carData.Picape = carData.SUV;
+        carData.Picape.combos = [];
 
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -398,16 +415,16 @@
             
             const cartModalOverlay = document.getElementById('cart-modal');
             let cartItemsList;
-            let totalPriceSpan;
+            let cartSummaryElement; 
             let checkoutButton;
 
-            // O ID agora é importante para a remoção
             let cart = [];
             let currentCarType = '';
-            let nextItemId = 0; // ID único para cada item no carrinho
+            let nextItemId = 0; 
 
-            // Seu número de WhatsApp (Inalterado)
             const WHATSAPP_NUMBER = '5544997063542';
+            const DISCOUNT_RATE = 0.05; // 5% de desconto
+            const CREDIT_ACCRESCIMO_RATE = 0.05; // 5% de acréscimo no crédito
 
             const formatPrice = (priceText) => {
                 const numStr = priceText.replace('R$', '').replace(',', '.').replace('cada', '').trim();
@@ -422,10 +439,8 @@
                 }).format(number);
             };
 
-            // Função para a animação
             const animateCart = () => {
                 floatingCartIcon.classList.remove('cart-pulse');
-                // Força o reflow (reset da animação)
                 void floatingCartIcon.offsetWidth; 
                 floatingCartIcon.classList.add('cart-pulse');
             }
@@ -446,18 +461,20 @@
                         <ul id="cart-items">
                             <li>Nenhum serviço avulso selecionado.</li>
                         </ul>
-                        <div id="cart-total">
-                            <span>Total:</span>
-                            <span id="total-price">R$ 0,00</span>
+                        <div id="cart-summary-totals"> 
                         </div>
-                        <button id="checkout-button" class="checkout-button" disabled>Finalizar Compra e Agendar</button>
+                        
+                        <p class="payment-note">
+                            *Acréscimo no valor total para pagamento com Cartão de Crédito.
+                        </p>
+                        <button id="checkout-button" class="checkout-button" disabled>Agendar</button>
                     </section>
                 `;
                 
                 cartModalOverlay.innerHTML = summaryHTML;
                 
                 cartItemsList = document.getElementById('cart-items');
-                totalPriceSpan = document.getElementById('total-price');
+                cartSummaryElement = document.getElementById('cart-summary-totals');
                 checkoutButton = document.getElementById('checkout-button');
 
                 checkoutButton.addEventListener('click', handleCheckout);
@@ -470,30 +487,38 @@
                 });
             };
 
-            // NOVO: Função para remover um item
             const removeItem = (itemId) => {
                 const index = cart.findIndex(item => item.id === itemId);
                 if (index > -1) {
+                    const item = cart[index];
+                    const checkbox = document.getElementById(item.checkboxId);
+                    if (checkbox) {
+                        checkbox.checked = false;
+                        checkbox.removeAttribute('data-cart-id');
+                    }
+                    
                     cart.splice(index, 1);
                     renderCart();
                 }
             };
             
             const renderCart = () => {
-                if (!cartItemsList) {
+                if (!cartSummaryElement) {
                     createCartSummaryHTML();
                 }
 
                 cartItemsList.innerHTML = '';
-                let total = 0;
+                let subtotal = 0;
+                let finalTotal = 0;
+                let discountAmount = 0;
+                const itemCount = cart.length;
 
-                if (cart.length === 0) {
+                if (itemCount === 0) {
                     cartItemsList.innerHTML = '<li>Nenhum serviço avulso selecionado.</li>';
                     checkoutButton.disabled = true;
                 } else {
                     cart.forEach(item => {
                         const li = document.createElement('li');
-                        // Adicionando o ID e o botão de remover
                         li.setAttribute('data-id', item.id); 
                         li.innerHTML = `
                             <span>${item.name}</span>
@@ -503,11 +528,10 @@
                             </div>
                         `;
                         cartItemsList.appendChild(li);
-                        total += item.price;
+                        subtotal += item.price;
                     });
                     checkoutButton.disabled = false;
                     
-                    // Adiciona o listener de remoção a todos os novos botões
                     document.querySelectorAll('.remove-item-btn').forEach(button => {
                         button.addEventListener('click', (event) => {
                             const itemId = parseInt(event.target.dataset.id);
@@ -515,10 +539,40 @@
                         });
                     });
                 }
-
-                totalPriceSpan.textContent = formatToBRL(total);
-                cartCountSpan.textContent = cart.length;
                 
+                if (itemCount >= 2) {
+                    discountAmount = subtotal * DISCOUNT_RATE;
+                    finalTotal = subtotal - discountAmount;
+                } else {
+                    finalTotal = subtotal;
+                }
+                
+                let totalsHTML = '';
+                if (itemCount > 0) {
+                    if (discountAmount > 0) {
+                        totalsHTML += `
+                            <div class="cart-subtotal">
+                                <span>Subtotal:</span>
+                                <span>${formatToBRL(subtotal)}</span>
+                            </div>
+                            <div class="cart-discount">
+                                <span>Desconto (5% em ${itemCount} itens):</span>
+                                <span>-${formatToBRL(discountAmount)}</span>
+                            </div>
+                        `;
+                    }
+                }
+                
+                totalsHTML += `
+                    <div id="cart-total">
+                        <span>Total:</span>
+                        <span id="total-price">${formatToBRL(finalTotal)}</span>
+                    </div>
+                `;
+                
+                cartSummaryElement.innerHTML = totalsHTML;
+
+                cartCountSpan.textContent = itemCount;
                 floatingCartIcon.style.display = 'flex';
             };
 
@@ -526,50 +580,67 @@
                 const checkbox = event.target;
                 const serviceName = checkbox.dataset.name;
                 const servicePrice = formatPrice(checkbox.dataset.price);
-                const serviceId = nextItemId++; // Cria um novo ID
 
                 if (checkbox.checked) {
+                    const serviceId = nextItemId++;
                     cart.push({
-                        id: serviceId, // Adiciona o ID ao item
+                        id: serviceId, 
                         name: serviceName,
-                        price: servicePrice
+                        price: servicePrice,
+                        checkboxId: checkbox.id 
                     });
-                    animateCart(); // 🚀 Chama a animação ao adicionar
+                    
+                    checkbox.setAttribute('data-cart-id', serviceId); 
+
+                    animateCart();
                 } else {
-                    // Ao desmarcar, precisamos encontrar o item para remover
-                    const itemToRemove = cart.find(item => item.name === serviceName);
-                    if (itemToRemove) {
-                         removeItem(itemToRemove.id);
+                    const cartId = parseInt(checkbox.getAttribute('data-cart-id'));
+                    const index = cart.findIndex(item => item.id === cartId);
+
+                    if (index > -1) {
+                         cart.splice(index, 1);
+                         checkbox.removeAttribute('data-cart-id');
                     }
                 }
 
                 renderCart();
             };
             
+            // FUNÇÃO ATUALIZADA: Removida a informação de acréscimo no crédito
             const handleCheckout = () => {
-                const total = formatPrice(totalPriceSpan.textContent);
+                const finalTotalElement = document.getElementById('total-price');
+                const finalTotal = formatPrice(finalTotalElement.textContent);
+                
+                // Variável totalCredito removida.
+
                 const itemsList = cart.map(item => `- ${item.name} (${formatToBRL(item.price)})`).join('\n');
                 
-                const checkoutMessage = 
-`Olá, gostaria de agendar os seguintes serviços para meu veículo ${currentCarType}:
+                let messageBody = `Olá, gostaria de agendar os seguintes serviços para meu veículo ${currentCarType}:
+\n${itemsList}\n`;
 
-${itemsList}
+                if (cart.length >= 2) {
+                    const subtotal = finalTotal / (1 - DISCOUNT_RATE);
+                    const discountAmount = subtotal * DISCOUNT_RATE;
+                    messageBody += `Subtotal: ${formatToBRL(subtotal)}\n`;
+                    messageBody += `Desconto (5% por múltiplos itens): -${formatToBRL(discountAmount)}\n`;
+                }
 
-Total: ${formatToBRL(total)}
-
-*Favor confirmar a disponibilidade de horário.*`;
+                // Linha de total simplificada, sem referência a Dinheiro/Pix ou Crédito.
+                messageBody += `\nTotal: ${formatToBRL(finalTotal)}`;
                 
-                const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(checkoutMessage)}`;
+                // A linha do Total Crédito foi removida.
+                
+                messageBody += `\n\n*Favor confirmar a disponibilidade de horário.*`;
+                
+                const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(messageBody)}`;
                 window.open(whatsappUrl, '_blank');
             };
 
 
             const generateServicesHTML = (data) => {
                 const services = data.additional_services;
-                const combos = data.combos;
                 let html = '';
 
-                // Serviços Avulsos
                 html += `
                     <section class="additional-services">
                         <h3>Serviços Avulsos para ${currentCarType} (Monte seu Pedido)</h3>
@@ -577,10 +648,11 @@ Total: ${formatToBRL(total)}
 
                 services.forEach(service => {
                     const priceValue = formatPrice(service.price);
+                    const checkboxId = `${service.name.replace(/\s/g, '-')}-${currentCarType}`;
 
                     html += `
                         <div class="service-item">
-                            <input type="checkbox" id="${service.name.replace(/\s/g, '-')}-${currentCarType}"
+                            <input type="checkbox" id="${checkboxId}"
                                 data-name="${service.name} (${currentCarType})"
                                 data-price="${priceValue}">
                             <div class="service-details">
@@ -592,33 +664,7 @@ Total: ${formatToBRL(total)}
                     `;
                 });
                 html += '</section>';
-
-                // Combos
-                html += `
-                    <section class="combo-section-group">
-                        <h3>Combos de Serviços para ${currentCarType}</h3>
-                `;
-                combos.forEach(combo => {
-                    let tableRows = combo.table.map(row => 
-                        `<tr><td>${row[0]}</td><td style="text-align: right;">${row[1]}</td></tr>`
-                    ).join('');
-                    
-                    let includesList = combo.includes.map(item => `<li>${item}</li>`).join('');
-
-                    html += `
-                        <div class="combo-section">
-                            <h4>${combo.name}</h4>
-                            <table>
-                                ${tableRows}
-                            </table>
-                            <ul>
-                                ${includesList}
-                            </ul>
-                        </div>
-                    `;
-                });
-                html += '</section>';
-
+                
                 return html;
             };
             
@@ -638,17 +684,17 @@ Total: ${formatToBRL(total)}
 
                 const checkboxes = servicesContent.querySelectorAll('input[type="checkbox"]');
                 checkboxes.forEach(checkbox => {
-                    // Limpamos o carrinho ao mudar de carro
                     checkbox.checked = false;
+                    checkbox.removeAttribute('data-cart-id'); 
                     checkbox.addEventListener('change', handleCheckboxChange);
                 });
                 
-                if (!cartItemsList) {
+                if (!cartSummaryElement) {
                     createCartSummaryHTML();
                 }
 
                 cart = []; 
-                nextItemId = 0; // Reinicia o ID
+                nextItemId = 0;
                 renderCart();
             };
 
