@@ -380,7 +380,7 @@
                     {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves. Indicado para recuperar a cor e o brilho do carro.", "price": "R$ 490,00"},
                     {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética.", "price": "R$ 60,00 cada"}
                 ],
-                "combos": [] 
+                
             },
             "Hatch": {
                 "additional_services": [
@@ -390,17 +390,36 @@
                     {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
                     {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 350,00"},
-                    {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 50,00 cada"}
+                    {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 60,00 cada"}
                 ],
-                "combos": [] 
+                
+            },
+            "Sedã": {
+                "additional_services": [
+                    {"name": "Lavagem detalhada (com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.", "price": "R$ 120,00"},
+                    {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
+                    {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
+                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
+                    {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
+                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 460,00"},
+                    {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 60,00 cada"}
+                ],
+                
+            },
+            "Picape": {
+                "additional_services": [
+                    {"name": "Lavagem detalhada (com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.", "price": "R$ 160,00"},
+                    {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
+                    {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
+                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
+                    {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
+                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 660,00"},
+                    {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 60,00 cada"}
+                ],
+                
             }
         };
-
-        carData.Sedã = carData.Hatch;
-        carData.Sedã.combos = [];
-        carData.Picape = carData.SUV;
-        carData.Picape.combos = [];
-
+        
 
         document.addEventListener('DOMContentLoaded', () => {
             const carTypeButtons = document.querySelectorAll('.car-type-btn');
@@ -729,3 +748,4 @@
     
 </body>
 </html>
+
