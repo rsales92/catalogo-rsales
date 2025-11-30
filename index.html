@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSales Lavacar - Catálogo de Serviços com Carrinho</title>
+    <title>RSales Lavacar - Catálogo de Serviços Avulsos</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -16,7 +16,7 @@
             --black: #212529;
             --white: #ffffff;
             --blue-light: #e6f7ff;
-            --blue-dark: #0056b3;
+            --blue-dark: #007bff;
             --green: #28a745;
             --dark-green: #1e7e34;
         }
@@ -67,17 +67,39 @@
         /* Serviços Avulsos */
         .additional-services { padding: 0 20px; padding-top: 10px; margin-bottom: 40px; }
         .additional-services h3 { color: var(--black); font-size: 24px; margin-bottom: 15px; text-align: center; font-weight: 700; border-bottom: 2px solid var(--medium-grey); padding-bottom: 10px; }
-        .service-item { background-color: var(--light-grey); border: 1px solid var(--medium-grey); border-radius: 5px; padding: 15px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
-        .service-item input[type="checkbox"] { min-width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary-red); }
+        .service-item { 
+            background-color: var(--light-grey); 
+            border: 1px solid var(--medium-grey); 
+            border-radius: 5px; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 15px; 
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        
+        /* Destaque para o serviço selecionado */
+        .service-item.selected {
+            background-color: var(--blue-light);
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+        }
+
+        .service-item input[type="checkbox"] { 
+            min-width: 20px; 
+            height: 20px; 
+            cursor: pointer; 
+            accent-color: var(--primary-red); 
+            margin-top: 5px; 
+        }
         .service-details { flex-grow: 1; }
         .service-item h4 { color: var(--primary-red); margin-top: 0; margin-bottom: 5px; font-size: 1.2em; font-weight: 600; }
         .service-item .price { font-weight: bold; color: var(--black); font-size: 1.1em; display: block; margin-top: 5px; }
+        .service-item p { font-size: 0.95em; color: var(--dark-grey); margin-bottom: 0; }
 
-        /* Estilos dos Combos (Removidos, mas mantendo classes neutras) */
-        .combo-section-group { display: none; }
-        .combo-section { display: none; }
         .back-button { display: block; width: fit-content; margin: 30px auto 0; }
-
+        
         /* --- ESTILOS DO MODAL/POPUP CENTRALIZADA --- */
         .floating-cart-wrapper {
             position: fixed;
@@ -188,7 +210,16 @@
             opacity: 1;
         }
 
-        #cart-summary h3 { color: var(--black); font-size: 18px; margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed var(--dark-grey); padding-bottom: 5px; }
+        #cart-summary h3 { 
+            color: var(--black); 
+            font-size: 18px; 
+            margin-top: 0; 
+            margin-bottom: 10px; 
+            border-bottom: 1px dashed var(--dark-grey); 
+            padding-bottom: 5px; 
+            /* Estilo para centralizar o título do carrinho */
+            text-align: center; 
+        }
         #cart-items { list-style: none; padding: 0; margin-bottom: 15px; }
         #cart-items li { 
             font-size: 0.9em; 
@@ -332,7 +363,7 @@
     <main class="container">
         <section id="car-selection">
             <p class="info-text">
-                Selecione a categoria do seu veículo para visualizar os preços e serviços disponíveis.
+                Selecione a categoria do seu veículo para visualizar os preços dos serviços avulsos disponíveis.
             </p>
             <h2>Selecione o tipo de carro:</h2>
             <div class="button-group">
@@ -353,7 +384,7 @@
     </main>
 
     <div id="cart-modal" class="cart-modal-overlay">
-        </div>
+    </div>
 
     <section class="floating-cart-wrapper">
         <div id="floating-cart-icon">
@@ -369,55 +400,54 @@
         const carData = {
             "SUV": {
                 "additional_services": [
-                    {"name": "Lavagem detalhada (com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.", "price": "R$ 140,00"},
-                    {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos (para-choques, frisos, retrovisores), com realce da cor original.", "price": "R$ 60,00"},
-                    {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original.", "price": "R$ 80,00"},
-                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros externos, remoção de resíduos como chuva ácida, gordura e poluição, com aplicação de selante hidrofóbico.", "price": "R$ 170,00"},
-                    {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios e livres de rachaduras.", "price": "R$ 150,00"},
-                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves. Indicado para recuperar a cor e o brilho do carro.", "price": "R$ 560,00"},
-                    {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética.", "price": "R$ 60,00 cada"}
+                    {"name": "Lavagem Detalhada(com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável. Inclui limpeza de caixas de roda, aplicação de cera protetora e muito mais...", "price": "R$ 140,00"},
+                    {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos (para-choques, frisos, retrovisores), com realce da cor original, utilizando produtos de alta durabilidade.", "price": "R$ 60,00"},
+                    {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original e proteção UV.", "price": "R$ 80,00"},
+                    {"name": "Descontaminação de pintura", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 500,00"},
+                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros externos, remoção de resíduos como chuva ácida, gordura e poluição, com aplicação de selante hidrofóbico para repelir a água.", "price": "R$ 170,00"},
+                    {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios, com remoção de sujeira e revitalização do material.", "price": "R$ 150,00"},
+                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves, restaurando o brilho e a cor do veículo. Ideal para carros que perderam o brilho com o tempo.", "price": "R$ 600,00"},
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética do veículo. O preço é por unidade.", "price": "R$ 60,00 cada"}
                 ],
-                
             },
             "Hatch": {
                 "additional_services": [
-                    {"name": "Lavagem detalhada (com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.", "price": "R$ 110,00"},
+                    {"name": "Lavagem Detalhada(com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável. Inclui limpeza de caixas de roda, aplicação de cera protetora e muito mais...", "price": "R$ 110,00"},
                     {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
                     {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
+                    {"name": "Descontaminação de pintura", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 300,00"},
                     {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
-                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 360,00"},
-                    {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 60,00 cada"}
+                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 400,00"},
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00 cada"}
                 ],
-                
             },
             "Sedã": {
                 "additional_services": [
-                    {"name": "Lavagem detalhada (com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.", "price": "R$ 120,00"},
+                    {"name": "Lavagem Detalhada(com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável. Inclui limpeza de caixas de roda, aplicação de cera protetora e muito mais...", "price": "R$ 120,00"},
                     {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
                     {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
+                    {"name": "Descontaminação de pintura", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 400,00"},
                     {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
-                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 460,00"},
-                    {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 60,00 cada"}
+                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 500,00"},
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00 cada"}
                 ],
-                
             },
             "Picape": {
                 "additional_services": [
-                    {"name": "Lavagem detalhada (com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável.", "price": "R$ 160,00"},
+                    {"name": "Lavagem Detalhada(com aplicação de cera)", "description": "Limpeza profunda e minuciosa, garantindo que cada canto do seu carro esteja impecável. Inclui limpeza de caixas de roda, aplicação de cera protetora e muito mais...", "price": "R$ 160,00"},
                     {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
                     {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
+                    {"name": "Descontaminação de pintura", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 600,00"},
                     {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
-                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 660,00"},
-                    {"name": "Limpeza dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 60,00 cada"}
+                    {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 700,00"},
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00 cada"}
                 ],
-                
             }
         };
         
-
         document.addEventListener('DOMContentLoaded', () => {
             const carTypeButtons = document.querySelectorAll('.car-type-btn');
             const backButton = document.getElementById('back-to-selection');
@@ -440,7 +470,6 @@
 
             const WHATSAPP_NUMBER = '5544997063542';
             const DISCOUNT_RATE = 0.05; // 5% de desconto
-            const CREDIT_ACCRESCIMO_RATE = 0.05; // 5% de acréscimo no crédito
 
             const formatPrice = (priceText) => {
                 const numStr = priceText.replace('R$', '').replace(',', '.').replace('cada', '').trim();
@@ -473,7 +502,7 @@
                 const summaryHTML = `
                     <section id="cart-summary">
                         <span class="close-modal">&times;</span>
-                        <h3>🛒 Carrinho de Serviços Avulsos</h3>
+                        <h3>🛒 Carrinho de Serviços</h3>
                         <ul id="cart-items">
                             <li>Nenhum serviço avulso selecionado.</li>
                         </ul>
@@ -481,7 +510,7 @@
                         </div>
                         
                         <p class="payment-note">
-                            *Acréscimo no valor total para pagamento com Cartão de Crédito.
+                            Valores válidos para pagamento em Dinheiro ou PIX
                         </p>
                         <button id="checkout-button" class="checkout-button" disabled>Agendar</button>
                     </section>
@@ -507,10 +536,17 @@
                 const index = cart.findIndex(item => item.id === itemId);
                 if (index > -1) {
                     const item = cart[index];
-                    const checkbox = document.getElementById(item.checkboxId);
+                    const checkbox = document.getElementById(item.elementId);
+                    
                     if (checkbox) {
                         checkbox.checked = false;
                         checkbox.removeAttribute('data-cart-id');
+                        
+                        // Remove o destaque do item de serviço
+                        const serviceItemDiv = checkbox.closest('.service-item');
+                        if (serviceItemDiv) {
+                            serviceItemDiv.classList.remove('selected');
+                        }
                     }
                     
                     cart.splice(index, 1);
@@ -592,24 +628,31 @@
                 floatingCartIcon.style.display = 'flex';
             };
 
-            const handleCheckboxChange = (event) => {
+
+            const handleServiceChange = (event) => {
                 const checkbox = event.target;
+                const serviceItemDiv = checkbox.closest('.service-item');
                 const serviceName = checkbox.dataset.name;
                 const servicePrice = formatPrice(checkbox.dataset.price);
 
                 if (checkbox.checked) {
+                    serviceItemDiv.classList.add('selected'); // Adiciona classe de destaque
+
                     const serviceId = nextItemId++;
                     cart.push({
                         id: serviceId, 
+                        type: 'service', // Mantido para consistência, mas não essencial
                         name: serviceName,
                         price: servicePrice,
-                        checkboxId: checkbox.id 
+                        elementId: checkbox.id 
                     });
                     
                     checkbox.setAttribute('data-cart-id', serviceId); 
 
                     animateCart();
                 } else {
+                    serviceItemDiv.classList.remove('selected'); // Remove classe de destaque
+
                     const cartId = parseInt(checkbox.getAttribute('data-cart-id'));
                     const index = cart.findIndex(item => item.id === cartId);
 
@@ -622,29 +665,22 @@
                 renderCart();
             };
             
-            // FUNÇÃO ATUALIZADA: Removida a informação de acréscimo no crédito
             const handleCheckout = () => {
                 const finalTotalElement = document.getElementById('total-price');
                 const finalTotal = formatPrice(finalTotalElement.textContent);
                 
-                // Variável totalCredito removida.
-
                 const itemsList = cart.map(item => `- ${item.name} (${formatToBRL(item.price)})`).join('\n');
                 
-                let messageBody = `Olá, gostaria de agendar os seguintes serviços para meu veículo ${currentCarType}:
-\n${itemsList}\n`;
+                let messageBody = `Olá, gostaria de agendar os seguintes serviços para meu veículo ${currentCarType}:\n\n${itemsList}\n`;
 
                 if (cart.length >= 2) {
                     const subtotal = finalTotal / (1 - DISCOUNT_RATE);
                     const discountAmount = subtotal * DISCOUNT_RATE;
-                    messageBody += `Subtotal: ${formatToBRL(subtotal)}\n`;
+                    messageBody += `\nSubtotal: ${formatToBRL(subtotal)}\n`;
                     messageBody += `Desconto (5% por múltiplos itens): -${formatToBRL(discountAmount)}\n`;
                 }
 
-                // Linha de total simplificada, sem referência a Dinheiro/Pix ou Crédito.
                 messageBody += `\nTotal: ${formatToBRL(finalTotal)}`;
-                
-                // A linha do Total Crédito foi removida.
                 
                 messageBody += `\n\n*Favor confirmar a disponibilidade de horário.*`;
                 
@@ -657,6 +693,7 @@
                 const services = data.additional_services;
                 let html = '';
 
+                // Apenas Serviços Avulsos
                 html += `
                     <section class="additional-services">
                         <h3>Serviços Avulsos para ${currentCarType} (Monte seu Pedido)</h3>
@@ -664,87 +701,82 @@
 
                 services.forEach(service => {
                     const priceValue = formatPrice(service.price);
-                    const checkboxId = `${service.name.replace(/\s/g, '-')}-${currentCarType}`;
+                    const checkboxId = `service-${service.name.replace(/[^\w]/g, '-')}-${currentCarType}`;
+
+                    const cartName = `${service.name} (${currentCarType})`;
+                    const isSelected = cart.some(item => item.elementId === checkboxId);
+                    const cartItem = cart.find(item => item.elementId === checkboxId);
+                    const selectedClass = isSelected ? 'selected' : '';
+                    const cartIdAttr = isSelected ? `data-cart-id="${cartItem.id}"` : '';
+                    const checkedAttr = isSelected ? 'checked' : '';
+
 
                     html += `
-                        <div class="service-item">
+                        <div class="service-item ${selectedClass}">
                             <input type="checkbox" id="${checkboxId}"
-                                data-name="${service.name} (${currentCarType})"
-                                data-price="${priceValue}">
+                                ${checkedAttr} 
+                                ${cartIdAttr}
+                                data-name="${cartName}"
+                                data-price="${priceValue}"
+                                >
                             <div class="service-details">
                                 <h4>${service.name}</h4>
+                                <span class="price">${service.price}</span>
                                 <p>${service.description}</p>
-                                <span class="price">Preço: ${service.price}</span>
                             </div>
                         </div>
                     `;
                 });
-                html += '</section>';
                 
-                return html;
-            };
-            
-            const showServices = (carType) => {
-                currentCarType = carType;
-                carTypeTitle.textContent = `Serviços para ${carType}`;
-                
-                if (!carData[carType]) {
-                    servicesContent.innerHTML = `<p style="text-align: center; color: var(--primary-red);">Erro: Dados de serviço para ${carType} não encontrados.</p>`;
-                    return;
-                }
-                
-                servicesContent.innerHTML = generateServicesHTML(carData[carType]);
+                html += `
+                    </section>
+                    <div class="appointment-message">
+                        <i class="fas fa-info-circle"></i> Os valores são referentes a ${currentCarType} e devem ser confirmados na loja.
+                    </div>
+                `;
 
-                carSelectionSection.style.display = 'none';
-                servicesDisplaySection.style.display = 'block';
-
-                const checkboxes = servicesContent.querySelectorAll('input[type="checkbox"]');
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = false;
-                    checkbox.removeAttribute('data-cart-id'); 
-                    checkbox.addEventListener('change', handleCheckboxChange);
+                servicesContent.innerHTML = html;
+                
+                // Adiciona listeners para serviços avulsos
+                document.querySelectorAll('.additional-services input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', handleServiceChange);
                 });
-                
-                if (!cartSummaryElement) {
-                    createCartSummaryHTML();
-                }
-
-                cart = []; 
-                nextItemId = 0;
-                renderCart();
             };
 
-            const backToSelection = () => {
-                carSelectionSection.style.display = 'block';
-                servicesDisplaySection.style.display = 'none';
-                cart = []; 
-                nextItemId = 0;
-                renderCart();
-                
-                cartModalOverlay.classList.remove('active'); 
-            };
-
+            // Event listeners para a seleção do tipo de carro
             carTypeButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
-                    const carType = event.target.dataset.car;
-                    showServices(carType);
+                    const selectedCar = event.target.dataset.car;
+                    currentCarType = selectedCar;
 
                     carTypeButtons.forEach(btn => btn.classList.remove('active'));
                     event.target.classList.add('active');
+
+                    carTypeTitle.textContent = `Serviços para ${selectedCar}`;
+                    generateServicesHTML(carData[selectedCar]);
+
+                    carSelectionSection.style.display = 'none';
+                    servicesDisplaySection.style.display = 'block';
                 });
             });
 
-            backButton.addEventListener('click', backToSelection);
-            
-            floatingCartIcon.addEventListener('click', toggleFloatingCart);
+            // Event listener para o botão de Voltar
+            backButton.addEventListener('click', () => {
+                servicesDisplaySection.style.display = 'none';
+                carSelectionSection.style.display = 'block';
+                document.querySelectorAll('.car-type-btn').forEach(btn => btn.classList.remove('active'));
+            });
 
+            // Event listener para o ícone do carrinho
+            floatingCartIcon.addEventListener('click', () => {
+                renderCart(); // Garante que o carrinho está atualizado antes de abrir
+                toggleFloatingCart();
+            });
+
+            // Inicializa o HTML do modal do carrinho
             createCartSummaryHTML();
             renderCart();
         });
     </script>
-    
 </body>
 </html>
-
-
-
