@@ -64,7 +64,7 @@
         .car-type-btn:hover, .back-button:hover { background-color: var(--dark-red); transform: translateY(-2px); }
         .car-type-btn.active { background-color: var(--dark-red); border: 2px solid var(--primary-red); }
 
-        /* Monte seu pedido */
+        /* Serviços Avulsos */
         .additional-services { padding: 0 20px; padding-top: 10px; margin-bottom: 40px; }
         .additional-services h3 { color: var(--black); font-size: 24px; margin-bottom: 15px; text-align: center; font-weight: 700; border-bottom: 2px solid var(--medium-grey); padding-bottom: 10px; }
         .service-item { 
@@ -363,7 +363,7 @@
     <main class="container">
         <section id="car-selection">
             <p class="info-text">
-                Selecione a categoria do seu veículo para visualizar os preços dos Monte seu pedido disponíveis.
+                Selecione a categoria do seu veículo para visualizar os preços dos serviços disponíveis.
             </p>
             <h2>Selecione o tipo de carro:</h2>
             <div class="button-group">
@@ -396,7 +396,7 @@
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 
     <script>
-        // ESTRUTURA DE DADOS (APENAS Monte seu pedido)
+        // ESTRUTURA DE DADOS (APENAS SERVIÇOS AVULSOS)
         const carData = {
             "SUV": {
                 "additional_services": [
@@ -407,7 +407,7 @@
                     {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros externos, remoção de resíduos como chuva ácida, gordura e poluição, com aplicação de selante hidrofóbico para repelir a água.", "price": "R$ 170,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios, com remoção de sujeira e revitalização do material.", "price": "R$ 150,00"},
                     {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves, restaurando o brilho e a cor do veículo. Ideal para carros que perderam o brilho com o tempo.", "price": "R$ 600,00"},
-                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética do veículo. O preço é por unidade.", "price": "R$ 60,00 cada"}
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética do veículo. O preço é por unidade.", "price": "R$ 60,00"}
                 ],
             },
             "Hatch": {
@@ -419,7 +419,7 @@
                     {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
                     {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 400,00"},
-                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00 cada"}
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00"}
                 ],
             },
             "Sedã": {
@@ -431,7 +431,7 @@
                     {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
                     {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 500,00"},
-                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00 cada"}
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00"}
                 ],
             },
             "Picape": {
@@ -443,7 +443,7 @@
                     {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 150,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
                     {"name": "Polimento Comercial", "description": "Polimento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 700,00"},
-                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00 cada"}
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis. O preço é por unidade.", "price": "R$ 60,00"}
                 ],
             }
         };
@@ -467,29 +467,39 @@
             let cart = [];
             let currentCarType = '';
             let nextItemId = 0; 
+            
+            let currentSubtotal = 0; // Armazena o subtotal numérico
+            let currentTotal = 0;   // Armazena o total numérico
 
             const WHATSAPP_NUMBER = '5544997063542';
             const DISCOUNT_RATE = 0.05; // 5% de desconto
 
             /**
-             * FUNÇÃO ATUALIZADA: Converte a string de preço em formato BRL (Ex: R$ 1.000,00) para um float (Ex: 1000.00).
-             * Essencial para o cálculo matemático correto.
+             * FUNÇÃO CRÍTICA: Converte a string de preço em formato BRL (Ex: R$ 1.000,00) para um float (Ex: 1000.00).
              */
             const formatPrice = (priceText) => {
-                // 1. Remove "R$" e qualquer texto adicional (como "cada")
-                let numStr = priceText.replace('R$', '').replace('cada', '').trim();
+                // Remove "R$" e qualquer texto que não seja dígito, ponto ou vírgula
+                let numStr = priceText.replace(/[^0-9,.]/g, '').trim();
                 
-                // 2. Remove o separador de milhares (o ponto)
+                // Trata o caso de "60,00 cada"
+                if (numStr.endsWith('cada')) {
+                     numStr = numStr.replace('cada', '').trim();
+                }
+
+                // 1. Remove o separador de milhares (o ponto)
                 // Ex: "1.000,00" -> "1000,00"
                 numStr = numStr.replace(/\./g, ''); 
                 
-                // 3. Converte o separador decimal (a vírgula) para o ponto decimal
+                // 2. Converte o separador decimal (a vírgula) para o ponto decimal
                 // Ex: "1000,00" -> "1000.00"
                 numStr = numStr.replace(',', '.');
                 
                 return parseFloat(numStr) || 0;
             };
 
+            /**
+             * FUNÇÃO CRÍTICA: Formata um número float para o formato de moeda BRL (R$ 1.000,00).
+             */
             const formatToBRL = (number) => {
                 return new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
@@ -573,8 +583,7 @@
                 }
 
                 cartItemsList.innerHTML = '';
-                let subtotal = 0;
-                let finalTotal = 0;
+                currentSubtotal = 0;
                 let discountAmount = 0;
                 const itemCount = cart.length;
 
@@ -593,7 +602,7 @@
                             </div>
                         `;
                         cartItemsList.appendChild(li);
-                        subtotal += item.price;
+                        currentSubtotal += item.price;
                     });
                     checkoutButton.disabled = false;
                     
@@ -606,11 +615,16 @@
                 }
                 
                 if (itemCount >= 2) {
-                    discountAmount = subtotal * DISCOUNT_RATE;
-                    finalTotal = subtotal - discountAmount;
+                    discountAmount = currentSubtotal * DISCOUNT_RATE;
+                    currentTotal = currentSubtotal - discountAmount;
                 } else {
-                    finalTotal = subtotal;
+                    currentTotal = currentSubtotal;
                 }
+                
+                // Arredondamento para evitar problemas de ponto flutuante no JavaScript
+                currentTotal = Math.round(currentTotal * 100) / 100;
+                discountAmount = Math.round(discountAmount * 100) / 100;
+                currentSubtotal = Math.round(currentSubtotal * 100) / 100;
                 
                 let totalsHTML = '';
                 if (itemCount > 0) {
@@ -618,7 +632,7 @@
                         totalsHTML += `
                             <div class="cart-subtotal">
                                 <span>Subtotal:</span>
-                                <span>${formatToBRL(subtotal)}</span>
+                                <span>${formatToBRL(currentSubtotal)}</span>
                             </div>
                             <div class="cart-discount">
                                 <span>Desconto (5% em ${itemCount} itens):</span>
@@ -631,7 +645,7 @@
                 totalsHTML += `
                     <div id="cart-total">
                         <span>Total:</span>
-                        <span id="total-price">${formatToBRL(finalTotal)}</span>
+                        <span id="total-price">${formatToBRL(currentTotal)}</span>
                     </div>
                 `;
                 
@@ -646,7 +660,7 @@
                 const checkbox = event.target;
                 const serviceItemDiv = checkbox.closest('.service-item');
                 const serviceName = checkbox.dataset.name;
-                const servicePrice = formatPrice(checkbox.dataset.price);
+                const servicePrice = formatPrice(checkbox.dataset.price); // Valor numérico
 
                 if (checkbox.checked) {
                     serviceItemDiv.classList.add('selected'); // Adiciona classe de destaque
@@ -654,7 +668,7 @@
                     const serviceId = nextItemId++;
                     cart.push({
                         id: serviceId, 
-                        type: 'service', // Mantido para consistência, mas não essencial
+                        type: 'service', 
                         name: serviceName,
                         price: servicePrice,
                         elementId: checkbox.id 
@@ -678,22 +692,21 @@
                 renderCart();
             };
             
+            /**
+             * FUNÇÃO CRÍTICA: Geração da mensagem de checkout
+             */
             const handleCheckout = () => {
-                const finalTotalElement = document.getElementById('total-price');
-                
-                // Usamos o formatPrice para obter o valor numérico correto, 
-                // limpando a formatação BRL do elemento.
-                const finalTotal = formatPrice(finalTotalElement.textContent);
-                
+                // Usamos as variáveis numéricas globais atualizadas pelo renderCart
+                const finalTotal = currentTotal;
+                const subtotalValue = currentSubtotal;
+                const discountAmount = subtotalValue * DISCOUNT_RATE;
+
                 const itemsList = cart.map(item => `- ${item.name} (${formatToBRL(item.price)})`).join('\n');
                 
                 let messageBody = `Olá, gostaria de agendar os seguintes serviços para meu veículo ${currentCarType}:\n\n${itemsList}\n`;
 
                 if (cart.length >= 2) {
-                    // Cálculo inverso para obter o subtotal a partir do total com desconto
-                    const subtotal = finalTotal / (1 - DISCOUNT_RATE);
-                    const discountAmount = subtotal * DISCOUNT_RATE;
-                    messageBody += `\nSubtotal: ${formatToBRL(subtotal)}\n`;
+                    messageBody += `\nSubtotal: ${formatToBRL(subtotalValue)}\n`;
                     messageBody += `Desconto (5% por múltiplos itens): -${formatToBRL(discountAmount)}\n`;
                 }
 
@@ -710,16 +723,22 @@
                 const services = data.additional_services;
                 let html = '';
 
-                // Apenas Monte seu pedido
+                // Apenas Serviços Avulsos
                 html += `
                     <section class="additional-services">
-                        <h3>Monte seu pedido</h3>
+                        <h3>Serviços</h3>
                 `;
 
                 services.forEach((service, index) => {
                     const id = `service-${currentCarType}-${index}`;
                     const isChecked = cart.some(item => item.name === service.name);
                     const selectedClass = isChecked ? 'selected' : '';
+
+                    // Ajusta a exibição para incluir "cada" no preço se for o farol
+                    let priceDisplay = service.price;
+                    if (service.name.includes("Revitalização dos faróis")) {
+                        priceDisplay += " cada";
+                    }
 
                     html += `
                         <div class="service-item ${selectedClass}">
@@ -735,7 +754,7 @@
                                     <h4>${service.name}</h4>
                                     <p>${service.description}</p>
                                 </label>
-                                <span class="price">${service.price}</span>
+                                <span class="price">${priceDisplay}</span>
                             </div>
                         </div>
                     `;
