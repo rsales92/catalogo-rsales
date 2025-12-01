@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSales Lavacar - Catálogo de Serviços Avulsos</title>
+    <title>RSales Lavacar - Catálogo de Serviços</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -64,7 +64,7 @@
         .car-type-btn:hover, .back-button:hover { background-color: var(--dark-red); transform: translateY(-2px); }
         .car-type-btn.active { background-color: var(--dark-red); border: 2px solid var(--primary-red); }
 
-        /* Serviços Avulsos */
+        /* Monte seu pedido */
         .additional-services { padding: 0 20px; padding-top: 10px; margin-bottom: 40px; }
         .additional-services h3 { color: var(--black); font-size: 24px; margin-bottom: 15px; text-align: center; font-weight: 700; border-bottom: 2px solid var(--medium-grey); padding-bottom: 10px; }
         .service-item { 
@@ -363,7 +363,7 @@
     <main class="container">
         <section id="car-selection">
             <p class="info-text">
-                Selecione a categoria do seu veículo para visualizar os preços dos serviços avulsos disponíveis.
+                Selecione a categoria do seu veículo para visualizar os preços dos Monte seu pedido disponíveis.
             </p>
             <h2>Selecione o tipo de carro:</h2>
             <div class="button-group">
@@ -396,7 +396,7 @@
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 
     <script>
-        // ESTRUTURA DE DADOS (APENAS SERVIÇOS AVULSOS)
+        // ESTRUTURA DE DADOS (APENAS Monte seu pedido)
         const carData = {
             "SUV": {
                 "additional_services": [
@@ -471,10 +471,23 @@
             const WHATSAPP_NUMBER = '5544997063542';
             const DISCOUNT_RATE = 0.05; // 5% de desconto
 
+            /**
+             * FUNÇÃO ATUALIZADA: Converte a string de preço em formato BRL (Ex: R$ 1.000,00) para um float (Ex: 1000.00).
+             * Essencial para o cálculo matemático correto.
+             */
             const formatPrice = (priceText) => {
-                const numStr = priceText.replace('R$', '').replace(',', '.').replace('cada', '').trim();
-                const match = numStr.match(/(\d+\.?\d*)/);
-                return match ? parseFloat(match[0]) : 0;
+                // 1. Remove "R$" e qualquer texto adicional (como "cada")
+                let numStr = priceText.replace('R$', '').replace('cada', '').trim();
+                
+                // 2. Remove o separador de milhares (o ponto)
+                // Ex: "1.000,00" -> "1000,00"
+                numStr = numStr.replace(/\./g, ''); 
+                
+                // 3. Converte o separador decimal (a vírgula) para o ponto decimal
+                // Ex: "1000,00" -> "1000.00"
+                numStr = numStr.replace(',', '.');
+                
+                return parseFloat(numStr) || 0;
             };
 
             const formatToBRL = (number) => {
@@ -657,8 +670,8 @@
                     const index = cart.findIndex(item => item.id === cartId);
 
                     if (index > -1) {
-                         cart.splice(index, 1);
-                         checkbox.removeAttribute('data-cart-id');
+                        cart.splice(index, 1);
+                        checkbox.removeAttribute('data-cart-id');
                     }
                 }
 
@@ -667,6 +680,9 @@
             
             const handleCheckout = () => {
                 const finalTotalElement = document.getElementById('total-price');
+                
+                // Usamos o formatPrice para obter o valor numérico correto, 
+                // limpando a formatação BRL do elemento.
                 const finalTotal = formatPrice(finalTotalElement.textContent);
                 
                 const itemsList = cart.map(item => `- ${item.name} (${formatToBRL(item.price)})`).join('\n');
@@ -674,6 +690,7 @@
                 let messageBody = `Olá, gostaria de agendar os seguintes serviços para meu veículo ${currentCarType}:\n\n${itemsList}\n`;
 
                 if (cart.length >= 2) {
+                    // Cálculo inverso para obter o subtotal a partir do total com desconto
                     const subtotal = finalTotal / (1 - DISCOUNT_RATE);
                     const discountAmount = subtotal * DISCOUNT_RATE;
                     messageBody += `\nSubtotal: ${formatToBRL(subtotal)}\n`;
@@ -693,89 +710,84 @@
                 const services = data.additional_services;
                 let html = '';
 
-                // Apenas Serviços Avulsos
+                // Apenas Monte seu pedido
                 html += `
                     <section class="additional-services">
-                        <h3>Serviços Avulsos para ${currentCarType} (Monte seu Pedido)</h3>
+                        <h3>Monte seu pedido</h3>
                 `;
 
-                services.forEach(service => {
-                    const priceValue = formatPrice(service.price);
-                    const checkboxId = `service-${service.name.replace(/[^\w]/g, '-')}-${currentCarType}`;
-
-                    const cartName = `${service.name} (${currentCarType})`;
-                    const isSelected = cart.some(item => item.elementId === checkboxId);
-                    const cartItem = cart.find(item => item.elementId === checkboxId);
-                    const selectedClass = isSelected ? 'selected' : '';
-                    const cartIdAttr = isSelected ? `data-cart-id="${cartItem.id}"` : '';
-                    const checkedAttr = isSelected ? 'checked' : '';
-
+                services.forEach((service, index) => {
+                    const id = `service-${currentCarType}-${index}`;
+                    const isChecked = cart.some(item => item.name === service.name);
+                    const selectedClass = isChecked ? 'selected' : '';
 
                     html += `
                         <div class="service-item ${selectedClass}">
-                            <input type="checkbox" id="${checkboxId}"
-                                ${checkedAttr} 
-                                ${cartIdAttr}
-                                data-name="${cartName}"
-                                data-price="${priceValue}"
-                                >
+                            <input 
+                                type="checkbox" 
+                                id="${id}" 
+                                data-name="${service.name}" 
+                                data-price="${service.price}"
+                                ${isChecked ? 'checked' : ''}
+                            />
                             <div class="service-details">
-                                <h4>${service.name}</h4>
+                                <label for="${id}">
+                                    <h4>${service.name}</h4>
+                                    <p>${service.description}</p>
+                                </label>
                                 <span class="price">${service.price}</span>
-                                <p>${service.description}</p>
                             </div>
                         </div>
                     `;
                 });
-                
-                html += `
-                    </section>
-                    <div class="appointment-message">
-                        <i class="fas fa-info-circle"></i> Os valores são referentes a ${currentCarType} e devem ser confirmados na loja.
-                    </div>
-                `;
 
-                servicesContent.innerHTML = html;
-                
-                // Adiciona listeners para serviços avulsos
-                document.querySelectorAll('.additional-services input[type="checkbox"]').forEach(checkbox => {
-                    checkbox.addEventListener('change', handleServiceChange);
-                });
+                html += `</section>`;
+                return html;
             };
 
-            // Event listeners para a seleção do tipo de carro
+            const showServices = (carType) => {
+                currentCarType = carType;
+                carTypeTitle.textContent = `${carType}`;
+                servicesContent.innerHTML = generateServicesHTML(carData[carType]);
+                carSelectionSection.style.display = 'none';
+                servicesDisplaySection.style.display = 'block';
+
+                document.querySelectorAll('#services-content input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', handleServiceChange);
+                });
+                renderCart(); // Atualiza o carrinho ao mudar o tipo de carro
+            };
+            
+            const showCarSelection = () => {
+                carSelectionSection.style.display = 'block';
+                servicesDisplaySection.style.display = 'none';
+                
+                // Limpar carrinho e desmarcar tudo ao voltar (opcional, mas recomendado)
+                cart = [];
+                currentCarType = '';
+                renderCart();
+                
+                // Remove a classe 'active' de todos os botões de seleção de carro
+                carTypeButtons.forEach(btn => btn.classList.remove('active'));
+            };
+
             carTypeButtons.forEach(button => {
                 button.addEventListener('click', (event) => {
-                    const selectedCar = event.target.dataset.car;
-                    currentCarType = selectedCar;
+                    const carType = event.target.dataset.car;
+                    showServices(carType);
 
+                    // Adiciona a classe 'active' ao botão clicado
                     carTypeButtons.forEach(btn => btn.classList.remove('active'));
                     event.target.classList.add('active');
-
-                    carTypeTitle.textContent = `Serviços para ${selectedCar}`;
-                    generateServicesHTML(carData[selectedCar]);
-
-                    carSelectionSection.style.display = 'none';
-                    servicesDisplaySection.style.display = 'block';
                 });
             });
 
-            // Event listener para o botão de Voltar
-            backButton.addEventListener('click', () => {
-                servicesDisplaySection.style.display = 'none';
-                carSelectionSection.style.display = 'block';
-                document.querySelectorAll('.car-type-btn').forEach(btn => btn.classList.remove('active'));
-            });
+            backButton.addEventListener('click', showCarSelection);
+            floatingCartIcon.addEventListener('click', toggleFloatingCart);
 
-            // Event listener para o ícone do carrinho
-            floatingCartIcon.addEventListener('click', () => {
-                renderCart(); // Garante que o carrinho está atualizado antes de abrir
-                toggleFloatingCart();
-            });
-
-            // Inicializa o HTML do modal do carrinho
+            // Inicializa o modal do carrinho
             createCartSummaryHTML();
-            renderCart();
+            renderCart(); // Renderiza o carrinho vazio inicialmente
         });
     </script>
 </body>
