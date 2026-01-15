@@ -487,9 +487,9 @@
                 let numStr = priceText.replace(/[^0-9,.]/g, '').trim();
                 
                 // Trata o caso de "60,00 cada"
-                if (numStr.endsWith('')) {
-                     numStr = numStr.replace('', '').trim();
-                }
+                // if (numStr.endsWith('')) {
+                //      numStr = numStr.replace('', '').trim();
+                // }
 
                 // 1. Remove o separador de milhares (o ponto)
                 // Ex: "1.000,00" -> "1000,00"
@@ -816,6 +816,7 @@
     </script>
 </body>
 </html>
+
 
 
 
