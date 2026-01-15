@@ -740,10 +740,10 @@
                     const selectedClass = isChecked ? 'selected' : '';
 
                     // Ajusta a exibição para incluir "cada" no preço se for o farol
-                    let priceDisplay = service.price;
-                    if (service.name.includes("Revitalização dos faróis")) {
-                        priceDisplay += " cada";
-                    }
+                    // let priceDisplay = service.price;
+                    // if (service.name.includes("Revitalização dos faróis")) {
+                    //     priceDisplay += " cada";
+                    // }
 
                     html += `
                         <div class="service-item ${selectedClass}">
@@ -816,6 +816,7 @@
     </script>
 </body>
 </html>
+
 
 
 
