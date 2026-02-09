@@ -575,6 +575,85 @@
             return 'express';
         }
 
+        const aplicarRegrasSelecao = () => {
+            const checkboxes = document.querySelectorAll('#services-content input[type="checkbox"]');
+
+            let lavagemSelecionada = false;
+            let descontaminacaoSelecionada = false;
+            let enceramentoSelecionado = false;
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const key = getServiceKey(cb.dataset.name);
+
+                    if (['express','completa','detalhadaTradicional','detalhadaPremium'].includes(key)) {
+                        lavagemSelecionada = true;
+                    }
+                    if (key === 'descontaminacao') descontaminacaoSelecionada = true;
+                    if (key === 'enceramento') enceramentoSelecionado = true;
+                }
+            });
+
+            checkboxes.forEach(cb => {
+                const key = getServiceKey(cb.dataset.name);
+                const wrapper = cb.closest('.service-item');
+
+                cb.disabled = false;
+                wrapper.classList.remove('disabled');
+
+                let motivo = '';
+
+                if (lavagemSelecionada && !cb.checked) {
+                    if (
+                        key === 'descontaminacao' ||
+                        key === 'enceramento' ||
+                        ['express','completa','detalhadaTradicional','detalhadaPremium'].includes(key)
+                    ) {
+                        cb.disabled = true;
+                        motivo = 'Já existe uma lavagem selecionada';
+                    }
+                }
+
+                if (descontaminacaoSelecionada && !cb.checked) {
+                    if (
+                        key === 'enceramento' ||
+                        ['express','completa','detalhadaTradicional','detalhadaPremium'].includes(key)
+                    ) {
+                        cb.disabled = true;
+                        motivo = 'Serviço incompatível com descontaminação';
+                    }
+                }
+
+                if (enceramentoSelecionado && !cb.checked) {
+                    if (
+                        key === 'descontaminacao' ||
+                        ['express','completa','detalhadaTradicional','detalhadaPremium'].includes(key)
+                    ) {
+                        cb.disabled = true;
+                        motivo = 'Serviço incompatível com enceramento';
+                    }
+                }
+
+                if (cb.disabled) {
+                    wrapper.classList.add('disabled');
+
+                    if (!wrapper.querySelector('.lock-tooltip')) {
+                        const span = document.createElement('span');
+                        span.className = 'lock-tooltip';
+                        span.innerText = motivo;
+                        wrapper.querySelector('.service-details').appendChild(span);
+                    } else {
+                        wrapper.querySelector('.lock-tooltip').innerText = motivo;
+                    }
+                } else {
+                    const tooltip = wrapper.querySelector('.lock-tooltip');
+                    if (tooltip) tooltip.remove();
+                }
+            });
+        };
+
+
+
         document.addEventListener('DOMContentLoaded', () => {
             const carTypeButtons = document.querySelectorAll('.car-type-btn');
             const backButton = document.getElementById('back-to-selection');
@@ -817,6 +896,7 @@
                 }
 
                 renderCart();
+                aplicarRegrasSelecao();
             };
             
             /**
@@ -940,7 +1020,8 @@
                   
             // Inicializa o modal do carrinho
             createCartSummaryHTML();
-            renderCart(); // Renderiza o carrinho vazio inicialmente
+            renderCart(); 
+            aplicarRegrasSelecao(); // Renderiza o carrinho vazio inicialmente
         });
     </script>
    
@@ -953,6 +1034,39 @@
   </div>
 </div>
 <style>
+        /* Serviço bloqueado */
+    .service-item.disabled {
+        opacity: 0.55;
+        filter: grayscale(100%);
+        pointer-events: none;
+        position: relative;
+    }
+
+    .service-item.disabled::after {
+        content: "🔒 Indisponível";
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        background: #dc3545;
+        color: #fff;
+        font-size: 11px;
+        padding: 3px 6px;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+
+    .service-item.disabled .lock-tooltip {
+        display: block;
+    }
+
+    .lock-tooltip {
+        display: none;
+        font-size: 12px;
+        margin-top: 6px;
+        color: #b30000;
+        font-weight: 600;
+    }
+
     .modal {
      position: fixed;
      inset: 0;
@@ -1160,6 +1274,5 @@ window.onclick = function(event) {
 </script>
 </body>
 </html>
-
 
 
