@@ -7,6 +7,98 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* BOTÃO */
+        .details-btn {
+            background: linear-gradient(135deg, #0b5ed7, #084298);
+            color: #fff;
+            border: none;
+            padding: 7px 14px;
+            font-size: 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .details-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* MODAL OVERLAY */
+        .details-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 3000;
+
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ATIVO */
+        .details-modal-overlay.active {
+            display: flex;
+        }
+
+        /* MODAL BOX */
+        .details-modal {
+            background: #fff;
+            padding: 22px 24px 24px;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 92%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            position: relative;
+
+            animation: modalScale 0.25s ease;
+        }
+
+        /* TÍTULO */
+        .details-modal h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #b30000;
+            font-size: 1.25em;
+            text-align: center;
+        }
+
+        /* TEXTO */
+        .details-modal p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #333;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        /* FECHAR */
+        .details-modal .close-details {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #444;
+            transition: 0.2s;
+        }
+
+        .details-modal .close-details:hover {
+            color: #b30000;
+        }
+
+        @keyframes modalScale {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
         :root {
             --primary-red: #dc3545;
             --dark-red: #c82333;
@@ -407,11 +499,11 @@
                     {"name": "Lavagem Detalhada + Cera Premium", "description": "Limpeza completa com cera premium, oferecendo alto brilho, maior proteção e intensa hidrorepelência.", "price": "R$ 180,00"},
                     {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos (para-choques, frisos, retrovisores), com realce da cor original, utilizando produtos de alta durabilidade.", "price": "R$ 60,00"},
                     {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles), com realce da cor original e proteção UV.", "price": "R$ 80,00"},
-                    {"name": "Descontaminação de pintura (Incluso Lavagem Completa)", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 500,00"},
-                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros externos, remoção de resíduos como chuva ácida, gordura e poluição, com aplicação de selante hidrofóbico para repelir a água.", "price": "R$ 230,00"},
+                    {"name": "Descontaminação de pintura", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 500,00"},
+                    {"name": "Cristalização dos vidros", "description": "Limpeza profunda dos vidros externos, remoção de resíduos como chuva ácida, gordura e poluição, com aplicação de selante hidrofóbico para repelir a água.", "price": "R$ 230,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios, com remoção de sujeira e revitalização do material.", "price": "R$ 150,00"},
                     {"name": "Enceramento Técnico (Incluso Lavagem + Descontaminação)", "description": "Enceramento da lataria, removendo manchas e riscos leves, restaurando o brilho e a cor do veículo. Ideal para carros que perderam o brilho com o tempo.", "price": "R$ 600,00"},
-                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética do veículo.", "price": "R$ 120,00"},
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis, melhorando a iluminação e a estética do veículo.", "price": "R$ 250,00"},
                     {"name": "Lavagem de Motor (a Seco)", "description": "Processo detalhado e seguro que remove sujeira, poeira e resíduos do cofre e componentes do motor sem utilizar água em excesso", "price": "R$ 250,00"}
                 ],
             },
@@ -423,11 +515,11 @@
                     {"name": "Lavagem Detalhada + Cera Premium", "description": "Limpeza completa com cera premium, oferecendo alto brilho, maior proteção e intensa hidrorepelência.", "price": "R$ 150,00"},
                     {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
                     {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
-                    {"name": "Descontaminação de pintura (Incluso Lavagem Completa)", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 300,00"},
-                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 230,00"},
+                    {"name": "Descontaminação de pintura", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 300,00"},
+                    {"name": "Cristalização dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 230,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
                     {"name": "Enceramento Técnico (Incluso Lavagem + Descontaminação)", "description": "Enceramento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 400,00"},
-                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 120,00"},
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 250,00"},
                     {"name": "Lavagem de Motor (a Seco)", "description": "Processo detalhado e seguro que remove sujeira, poeira e resíduos do cofre e componentes do motor sem utilizar água em excesso", "price": "R$ 250,00"}
                 ],
             },
@@ -439,11 +531,11 @@
                     {"name": "Lavagem Detalhada + Cera Premium", "description": "Limpeza completa com cera premium, oferecendo alto brilho, maior proteção e intensa hidrorepelência.", "price": "R$ 160,00"},
                     {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
                     {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
-                    {"name": "Descontaminação de pintura (Incluso Lavagem Completa)", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 400,00"},
-                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 230,00"},
+                    {"name": "Descontaminação de pintura", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 400,00"},
+                    {"name": "Cristalização dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 230,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
                     {"name": "Enceramento Técnico (Incluso Lavagem + Descontaminação)", "description": "Enceramento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 500,00"},
-                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 120,00"},
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 250,00"},
                     {"name": "Lavagem de Motor (a Seco)", "description": "Processo detalhado e seguro que remove sujeira, poeira e resíduos do cofre e componentes do motor sem utilizar água em excesso", "price": "R$ 250,00"}
                 ],
             },
@@ -455,16 +547,34 @@
                     {"name": "Lavagem Detalhada + Cera Premium", "description": "Limpeza completa com cera premium, oferecendo alto brilho, maior proteção e intensa hidrorepelência.", "price": "R$ 200,00"},
                     {"name": "Hidratação dos plásticos externos", "description": "Limpeza e descontaminação dos plásticos externos.", "price": "R$ 40,00"},
                     {"name": "Hidratação dos plásticos internos", "description": "Limpeza e descontaminação dos plásticos internos (painel, portas, consoles).", "price": "R$ 60,00"},
-                    {"name": "Descontaminação de pintura (Incluso Lavagem Completa)", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 600,00"},
-                    {"name": "Descontaminação e proteção dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 230,00"},
+                    {"name": "Descontaminação de pintura", "description": "Removemos impurezas profundas da pintura, incluindo resíduos metálicos, seiva, poluentes e pulverização de tinta. O processo devolve o toque liso e realça o brilho da superfície.", "price": "R$ 600,00"},
+                    {"name": "Cristalização dos vidros", "description": "Limpeza profunda dos vidros, remoção de chuva ácida e aplicação de selante hidrofóbico.", "price": "R$ 230,00"},
                     {"name": "Higienização e hidratação dos bancos de couro", "description": "Limpeza e hidratação profunda para manter seus bancos de couro macios.", "price": "R$ 120,00"},
                     {"name": "Enceramento Técnico (Incluso Lavagem + Descontaminação)", "description": "Enceramento da lataria, removendo manchas e riscos leves e recuperando o brilho.", "price": "R$ 700,00"},
-                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 120,00"},
+                    {"name": "Revitalização dos faróis (amarelados ou opacos)", "description": "Renova o brilho e remove o amarelado dos faróis.", "price": "R$ 250,00"},
                     {"name": "Lavagem de Motor (a Seco)", "description": "Processo detalhado e seguro que remove sujeira, poeira e resíduos do cofre e componentes do motor sem utilizar água em excesso", "price": "R$ 250,00"}
                 ],
             }
         };
-        
+        function getServiceKey(name) {
+            name = name.toLowerCase();
+
+            if (name.includes('express')) return 'express';
+            if (name.includes('completa')) return 'completa';
+            if (name.includes('tradicional')) return 'detalhadaTradicional';
+            if (name.includes('premium')) return 'detalhadaPremium';                
+            if (name.includes('plásticos externos')) return 'plasticosExternos';
+            if (name.includes('plásticos internos')) return 'plasticosInternos';
+            if (name.includes('descontaminação de pintura')) return 'descontaminacao';
+            if (name.includes('bancos')) return 'bancos';
+            if (name.includes('enceramento')) return 'enceramento';
+            if (name.includes('motor')) return 'motor';
+            if (name.includes('faróis') || name.includes('farois')) return 'farol';
+            if (name.includes('vidros')) return 'vidros';
+
+            return 'express';
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const carTypeButtons = document.querySelectorAll('.car-type-btn');
             const backButton = document.getElementById('back-to-selection');
@@ -769,7 +879,14 @@
                             <div class="service-details">
                                 <label for="${id}">
                                     <h4>${service.name}</h4>
-                                    <p>${service.description}</p>
+                                    <p>${service.description.substring(0, 70)}...</p>
+
+                                    <button 
+                                        class="details-btn"
+                                        onclick="abrirModal('${getServiceKey(service.name)}')">
+                                        MAIS DETALHES
+                                    </button>
+
                                 </label>
                                 <span class="price">${priceDisplay}</span>
                             </div>
@@ -820,15 +937,225 @@
 
             backButton.addEventListener('click', showCarSelection);
             floatingCartIcon.addEventListener('click', toggleFloatingCart);
-
+                  
             // Inicializa o modal do carrinho
             createCartSummaryHTML();
             renderCart(); // Renderiza o carrinho vazio inicialmente
         });
     </script>
+   
+    <!-- MODAL MAIS DETALHES -->
+<div id="modalDetalhes" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="fecharModal()">&times;</span>
+    <h2 id="modalTitulo"></h2>
+    <ul id="modalLista"></ul>
+  </div>
+</div>
+<style>
+    .modal {
+     position: fixed;
+     inset: 0;
+     z-index: 9999;
+     background: rgba(0,0,0,0.6);
+     backdrop-filter: blur(3px);
+
+     display: none;
+     align-items: center;
+     justify-content: center;
+    }
+
+
+    .modal-content {
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    max-width: 450px;
+    width: 92%;
+    animation: zoom .25s ease;
+    }
+
+@keyframes zoom {
+  from { transform: translateY(15px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+
+.close {
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+#modalTitulo {
+  margin-bottom: 10px;
+  color: #111;
+  font-size: 22px;
+}
+
+#modalLista {
+  padding-left: 18px;
+}
+
+#modalLista li {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+</style>
+
+<script>
+    const servicos = {
+    express: {
+    titulo: "Lavagem Express",
+    itens: [
+      "Lavagem externa com shampoo tradicional",
+      "Limpeza interna superficial",
+      "Limpeza rápida de rodas e pneus",
+    ]
+  },
+
+  completa: {
+    titulo: "Lavagem Completa",
+    itens: [
+      "Pré-lavagem desengraxante",
+      "Lavagem externa com shampoo de cera",
+      "Aspiração interna completa",
+      "Limpeza de painel, portas e console",
+      "Limpeza dos vidros internos e externos",
+      "Lavagem de rodas e pneus",
+      "Finalização com brilho nos pneus"
+    ]
+  },
+
+  detalhadaTradicional: {
+    titulo: "Lavagem Detalhada + Cera Tradicional",
+    itens: [
+      "Lavagem técnica detalhada (incluso pré-lavagem)",
+      "Limpeza das rodas, caixas de roda e pneus",
+      "Aplicação de cera tradicional de carnauba",
+      "Secagem com toalhas de microfibra",
+      "Finalização com brilho nos pneus"
+    ]
+  },
+
+  detalhadaPremium: {
+    titulo: "Lavagem Detalhada + Cera Premium",
+    itens: [
+      "Lavagem técnica detalhada (incluso pré-lavagem)",
+      "Limpeza das rodas, caixas de roda e pneus",
+      "Aplicação de cera premium de alta durabilidade",
+      "Secagem com microfibra especial",
+      "Finalização com brilho nos pneus"
+    ]
+  },
+
+  plasticosExternos: {
+    titulo: "Hidratação dos plásticos externos",
+    itens: [
+        "Limpeza profunda dos plásticos externos",
+        "Descontaminação de sujeiras pesadas",
+        "Revitalização da cor original",
+        "Proteção UV prolongada"
+    ]
+},
+
+   plasticosInternos: {
+    titulo: "Hidratação dos plásticos internos",
+    itens: [
+        "Limpeza técnica de painel, portas e console",
+        "Revitalização da cor original",
+        "Proteção UV",
+        "Acabamento premium"
+    ]
+},
+
+descontaminacao: {
+  titulo: "Descontaminação de pintura",
+  itens: [
+    "Remoção de resíduos metálicos",
+    "Remoção de seiva, poluição, pulverização de tinta e outros",
+    "Clay bar profissional",
+    "Toque liso e brilho restaurado"
+  ]
+},
+
+bancos: {
+  titulo: "Higienização e hidratação dos bancos de couro",
+  itens: [
+    "Higienização profunda do couro",
+    "Limpeza de poros",
+    "Hidratação intensiva",
+    "Proteção contra ressecamento"
+  ]
+},
+
+enceramento: {
+    titulo: "Enceramento Técnico",
+    itens: [
+      "Lavagem técnica preparatória",
+      "Descontaminação da pintura",
+      "Aplicação de cera ou selante técnico profissional",
+      "Proteção contra raios UV e intempéries",
+      "Acabamento final com alto brilho"
+    ]
+},
+
+  motor: {
+    titulo: "Limpeza e Proteção de Motor",
+    itens: [
+      "Isolamento das partes sensíveis",
+      "Limpeza técnica segura do cofre do motor",
+      "Remoção de graxa, poeira e sujeira",
+      "Aplicação de protetor em plásticos e borrachas",
+      "Acabamento final"
+    ]
+  },
+
+  farol: {
+    titulo: "Revitalização de Faróis",
+    itens: [
+      "Lixamento técnico progressivo",
+      "Polimento profissional",
+      "Aplicação de proteção UV",
+      "Restauração da transparência"
+    ]
+  },
+
+  vidros: {
+    titulo: "Cristalização de Vidros",
+    itens: [
+      "Limpeza técnica dos vidros",
+      "Descontaminação da superfície",
+      "Aplicação de produto hidrorrepelente",
+      "Acabamento final"
+    ]
+  }
+};
+
+function abrirModal(servico) {
+  document.getElementById("modalTitulo").innerText = servicos[servico].titulo;
+
+  const lista = document.getElementById("modalLista");
+  lista.innerHTML = "";
+
+  servicos[servico].itens.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    lista.appendChild(li);
+  });
+
+  document.getElementById("modalDetalhes").style.display = "flex";
+}
+
+function fecharModal() {
+  document.getElementById("modalDetalhes").style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById("modalDetalhes")) {
+    fecharModal();
+  }
+}
+</script>
 </body>
 </html>
-
-
-
-
